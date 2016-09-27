@@ -22,23 +22,21 @@ bool operator!=(const vec2 &lhs, const vec2 &rhs);
 
 float magnitude(const vec2 &v);
 
-//arithmetic operations:
-	// comp add
-	// comp sub
-	// scaler mult
-	// scaler div
+// divide by magnitude
+vec2 normal(const vec2 &v);
 
-// relational operators
-	// comp equiv
-	// comp non equiv
+//
+float dot(const vec2 &rhs, const vec2 &lhs);
 
-// vector operations
-	// mag (pythagorean therem
+// returns in radians
+float angleBetween(const vec2 &rhs, const vec2 &lhs);
 
-// assignment expressions
-	// assignment addition
-	// assignment sub
-	// assignment scalar mult
-	// assignment scalar div
+// right handed
+vec2 perp(const vec2 &v);
 
-//unary negation
+//arctangent
+// find the angle of the vector. returns in radians
+float angle(const vec2 &v);
+
+// vec2{cos(a), sin(a)};
+vec2 fromAngle(float a);

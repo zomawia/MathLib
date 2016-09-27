@@ -2,6 +2,8 @@
 #include <cstdio>
 #include "Test.h"
 #include "vec2.h"
+#include "vec3.h"
+#include "flops.h"
 
 int main()
 {
@@ -28,53 +30,63 @@ int main()
 	Point Point1 = { 1, 1 };
 	Point Point2 = { 5, 9 };
 	
-	printf("distance: %f \n\n", distance(Point1, Point2));
+	//printf("distance: %f \n\n", distance(Point1, Point2));
 
 	//assert(distance(Point1, Point2) > 8.944271);
 
 	//e
 	Point3d A = { 0, 0, 0 };
 	Point3d B = { 1, 12, 13 };
-	printf("inner: %f \n\n", inner(A, B));
+	//printf("inner: %f \n\n", inner(A, B));
 	//assert(inner(A, B) == 64);
 
 	//f
 	plane myPlane = { 0,0,1,0 };
-	printf("plane distance: %f \n\n", plane_distance(myPlane, A));
+	//printf("plane distance: %f \n\n", plane_distance(myPlane, A));
 	assert(plane_distance(myPlane, A) == 0);
 
 	//g
 
 	assert(	(vec2{ 1,0 } + vec2{ 0,1 } == vec2{ 1,1 })	);
-
 	assert((vec2{ 1,1 } - vec2{ 1,1 } == vec2{ 0,0 }));
-
 	assert((vec2{ 1,2 } * 5 == vec2{ 5,10 }));
-
 	assert((5 * vec2{ 1,2 } == vec2{ 5,10 }));
-
 	assert((vec2{ 20,10 } / 2 == vec2{ 10,5 }));
 
 	assert((-vec2{ 1,2 } == vec2{ -1,-2 }));
 
 	assert(	((vec2{ 5,4 } += vec2{5,4}) == vec2{10, 8})	);
-
 	assert(((vec2{ 1,3 } -= vec2{ 2,2 }) == vec2{ -1, 1 }));
-
 	assert(((vec2{ 2,4 } *= 5) == vec2{ 10, 20 }));
-
 	assert(((vec2{ 10,6 } /= 2) == vec2{ 5,3 }));
 
 	assert((vec2{ 1,1 } == vec2{ 1,1 }));
-
 	assert((vec2{ 1,1 } != vec2{ 0,1 }));
 
+
+	// normalization and magnitude
 	assert((magnitude(vec2{ 3,4 }) == 5));
+	assert((magnitude(vec2{ 20,21 }) == 29));
 
+	assert(fequals(-1, -.9999999f));
+	assert(fequals(1, .99999999f));
+
+	assert(rad2deg(angleBetween(vec2{1,0}, vec2{0,1})) == 90);	
+	assert(rad2deg(angleBetween(vec2{ 1,0 }, vec2{ 1,1 })) == 45);
+
+	assert(dot(vec2{1,0}, vec2{1,1}) == 1);
+	printf("%f", dot(vec2{ -1,0 }, vec2{ 1,1 }));
+
+	assert((cross(vec3{ 1,0,0 }, vec3{ 0,1,0 })
+		== vec3{ 0,0,1 }));
+
+	assert((fromAngle(0) == vec2{ 1,0 }));
+	assert((fromAngle(deg2rad(90)) == vec2{ 0,1 }));
+
+	assert((rad2deg(angle(vec2{ 0,1 })) == 90));
+	assert((rad2deg(angle(vec2{ -1, 0 })) == 180));
 	
-
-
-
+	printf("All asserts working!\n");
 	getchar();
 
 	return 0;
