@@ -1,5 +1,16 @@
 #include "transform.h"
 #include "sfwdraw.h"
+#include <cmath>
+
+Transform::Transform() : facing(0), position({ 400,300 }), scale({20,8})
+{
+}
+
+Transform::Transform(float x, float y)
+{
+	position.x = x;
+	position.y = y;
+}
 
 vec2 Transform::getDirection()
 {
@@ -13,12 +24,9 @@ void Transform::setDirection(const vec2 & dir)
 
 void Transform::debugDraw()
 {
-	sfw::drawCircle(position.x, position.y, 12,12,0x888888FF);
+	dirEnd = position + getDirection() * scale.x * 4;
+	//vec2 upEnd = position - perp(getDirection()) * scale.y * 4;
 
-	vec2 dirEnd = position + getDirection() * scale.x * 4;
-	vec2 upEnd = position - perp(getDirection()) * scale.y * 4;
-
-
-	sfw::drawLine(position.x, position.y, dirEnd.x, dirEnd.y, RED);
-	sfw::drawLine(position.x, position.y, upEnd.x, upEnd.y, GREEN);
+	sfw::drawLine(position.x, position.y, dirEnd.x, dirEnd.y, color);
+	//sfw::drawLine(position.x, position.y, upEnd.x, upEnd.y, color);
 }

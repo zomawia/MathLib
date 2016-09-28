@@ -52,6 +52,16 @@ vec2 & operator*=(vec2 & lhs, const float &rhs)
 	return lhs = lhs * rhs;
 }
 
+vec2 & operator/=(const float & rhs, vec2 & lhs)
+{
+	return lhs = lhs / rhs;
+}
+
+vec2 & operator*=(const float & rhs, vec2 & lhs)
+{
+	return lhs = lhs * rhs;
+}
+
 bool operator==(const vec2 & lhs, const vec2 & rhs)
 {
 	return fequals(lhs.x, rhs.x) && fequals(lhs.y, rhs.y);

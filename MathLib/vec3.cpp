@@ -52,6 +52,16 @@ vec3 & operator*=(vec3 & lhs, const float &rhs)
 	return lhs = lhs * rhs;
 }
 
+vec3 & operator/=(const float & rhs, vec3 & lhs)
+{
+	return lhs = lhs / rhs;
+}
+
+vec3 & operator*=(const float & rhs, vec3 & lhs)
+{
+	return lhs = lhs * rhs;
+}
+
 bool operator==(const vec3 & lhs, const vec3 & rhs)
 {
 	return fequals(lhs.x,rhs.x) && fequals(lhs.y, rhs.y) && fequals(lhs.z, rhs.z);
@@ -74,18 +84,13 @@ vec3 normal(const vec3 & v)
 
 float dot(const vec3 & rhs, const vec3 & lhs)
 {
-	return (rhs.x * lhs.x) + (rhs.y * lhs.y);
+	return (rhs.x * lhs.x) + (rhs.y * lhs.y) + (rhs.z * lhs.z);
 }
 
 float angleBetween(const vec3 & rhs, const vec3 & lhs)
 {
 	return acos(dot(normal(rhs), normal(lhs)));
 }
-
-// toa = tan(a) = Opposite / Adjacent
-// tan(a) = y / x
-// atan(tan(a)) = atan(y/x)
-// a = atan(y/x)
 
 vec3 cross(const vec3 & rhs, const vec3 & lhs)
 {
