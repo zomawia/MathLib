@@ -59,7 +59,7 @@ bool operator==(const vec2 & lhs, const vec2 & rhs)
 
 bool operator!=(const vec2 & lhs, const vec2 & rhs)
 {
-	return lhs.x != rhs.x || lhs.y != rhs.x;
+	return !fequals(lhs.x, rhs.x) || !fequals(lhs.y, rhs.y);
 }
 
 float magnitude(const vec2 & v)
