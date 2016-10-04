@@ -1,5 +1,6 @@
 #include "Test.h"
 #include <cmath>
+#include "flops.h"
 
 // This is a develop branch!
 
@@ -39,11 +40,6 @@ quad_results test_quad_roots(float a, float b, float c)
 
 	return temp;
 
-}
-
-float lerp(float start, float end, float t)
-{
-	return start + t * (end - start);
 }
 
 float distance(Point P1, Point P2)

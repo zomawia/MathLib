@@ -15,7 +15,7 @@ struct quad_results
 quad_results test_quad_roots(float a, float b, float c);
 
 //c
-float lerp(float start, float end, float t);
+//float lerp(float start, float end, float t);
 
 struct Point { float x, y; };
 

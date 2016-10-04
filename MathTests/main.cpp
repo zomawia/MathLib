@@ -87,6 +87,8 @@ int main()
 	assert((rad2deg(angle(vec2{ 0,1 })) == 90));
 	assert((rad2deg(angle(vec2{ -1, 0 })) == 180));
 	
+
+	
 	printf("All asserts working!\n");
 	getchar();
 

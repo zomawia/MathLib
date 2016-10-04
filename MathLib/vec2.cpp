@@ -111,3 +111,52 @@ vec2 fromAngle(float a)
 {
 	return vec2{cos(a), sin(a)};
 }
+
+vec2 lerp(const vec2 & start, const vec2 & end, float alpha)
+{
+	vec2 retval;
+	retval.x = lerp(start.x, end.x, alpha);
+	retval.y = lerp(start.y, end.y, alpha);
+	return retval;	
+}
+
+vec2 quadBezier(const vec2 & start, const vec2 & mid, const vec2 & end, float alpha)
+{
+	vec2 retval;
+	retval.x = lerp(lerp(start.x, mid.x, alpha), lerp(mid.x, end.x, alpha), alpha);
+	retval.y = lerp(lerp(start.y, mid.y, alpha), lerp(mid.y, end.y, alpha), alpha);
+	return retval;
+}
+
+vec2 hermiteSpline(const vec2 & start, const vec2 & s_tan, const vec2 & end, const vec2 & e_tan, float alpha)
+{
+	vec2 retval;
+
+	float asq = alpha * alpha;
+	float acub = asq * alpha;
+
+	float h00 = 2 * acub - 3 * asq + 1;
+	float h01 = -2 * acub + 3 * asq;
+	float h10 = acub - 2 * asq + alpha;
+	float h11 = acub - asq;
+
+	retval.x = h00 * start.x + h10 * s_tan.x + h01 * end.x + h11 * e_tan.x;
+	retval.y = h00 * start.y + h10 * s_tan.y + h01 * end.y + h11 * e_tan.y;
+
+	return retval;
+
+}
+
+vec2 cardinalSpline(const vec2 & start, const vec2 & mid, const vec2 & end, float tight, float alpha)
+{
+	vec2 tangent0 = (mid - start) * tight;
+	vec2 tangent1 = (end - mid) * tight;
+	
+	return hermiteSpline(start, tangent0, end, tangent1, alpha);
+}
+
+vec2 catRomSpline(const vec2 & start, const vec2 & mid, const vec2 & end, float alpha)
+{
+	return cardinalSpline(start, mid, end, 0.5f, alpha);
+}
+
