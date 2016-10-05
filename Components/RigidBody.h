@@ -11,6 +11,8 @@ public:
 	vec2 accel;
 	float angularVelocity;
 	float angularAccel;
+
+	float angle;
 	
 	void integrate(Transform &trans, float delta);
 };

@@ -29,11 +29,11 @@ void Transform::debugDraw()
 		position.y, scale.x, scale.y, 0x888888FF);
 
 	vec2 dirEnd = position + getDirection() * scale.x;
-	vec2 upEnd = position - perp(getDirection()) * scale.x;
+	//vec2 upEnd = position - perp(getDirection()) * scale.x;
 
 	sfw::drawLine(position.x, position.y,
 		dirEnd.x, dirEnd.y, RED);
 
-	sfw::drawLine(position.x, position.y,
-		upEnd.x, upEnd.y, GREEN);
+	//sfw::drawLine(position.x, position.y,
+	//	upEnd.x, upEnd.y, GREEN);
 }

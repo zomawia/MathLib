@@ -5,6 +5,8 @@
 #include <cmath>
 #include <cstdio>
 #include "RigidBody.h"
+#include "SpaceshipLocomotion.h"
+#include "SpaceshipController.h"
 
 void main()
 {
@@ -13,6 +15,9 @@ void main()
 	
 	Transform playerTransform(400,400,12,12);
 	RigidBody playerRigidBody;
+	SpaceshipLocomotion playerLoco;
+	SpaceshipController playerCtrl;
+
 	playerRigidBody.velocity = vec2{ 0,0 };
 	float gravity = 9.8f;
 
@@ -24,18 +29,6 @@ void main()
 
 		
 		// change rigidbody velocity according to input
-		if (sfw::getKey('W')) playerRigidBody.accel.y += 2.0f;
-		if (sfw::getKey('S')) playerRigidBody.accel.y -= 2.0f;
-		if (sfw::getKey('A')) playerRigidBody.accel.x -= 2.0f;
-		if (sfw::getKey('D')) playerRigidBody.accel.x += 2.0f;
-
-		if (sfw::getKey('Q')) playerRigidBody.angularAccel += 2.0f;
-		if (sfw::getKey('E')) playerRigidBody.angularAccel -= 2.0f;
-
-		if (sfw::getKey(KEY_UP)) playerTransform.scale.x += 1.0f;
-		if (sfw::getKey(KEY_DOWN)) playerTransform.scale.x -= 1.0f;
-		if (sfw::getKey(KEY_RIGHT)) playerTransform.scale.y += 1.0f;
-		if (sfw::getKey(KEY_LEFT) && playerTransform.scale.y >= 4) playerTransform.scale.y -= 1.0f;
 
 		// wrap
 		if (playerTransform.position.x > SCREEN_WIDTH) playerTransform.position.x = 0.0f;
@@ -46,7 +39,9 @@ void main()
 
 
 		// apply rigidbody forces
+		playerLoco.update(playerRigidBody, time);
 		playerRigidBody.integrate(playerTransform, time);
+		playerCtrl.update(playerLoco);
 
 		// draw the player
 		playerTransform.debugDraw();

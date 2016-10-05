@@ -12,7 +12,9 @@ void RigidBody::integrate(Transform & trans, float delta)
 {
 	velocity += accel * delta;
 	angularVelocity = angularAccel * delta;
+	angle = trans.facing;
 	
 	trans.position = trans.position + velocity * delta;
 	trans.facing = trans.facing + angularVelocity * delta;
+	
 }

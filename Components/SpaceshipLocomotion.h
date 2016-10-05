@@ -4,21 +4,29 @@
 
 class SpaceshipLocomotion
 {
-	SpaceshipLocomotion();
 	
-	float thrust;		//foward movement
-	float maxThrust;	//max forward movement
-	float thrustSpeed;	//rate of change for our thrust
-
-	float turn;			//turn
+	
+	float vThrust;		//foward movement				(0-1 value)
+	float hThrust;
+						//float maxThrust;	//max forward movement
+	//float thrustSpeed;	//rate of change for our thrust
+		
+	float turn;			//turn							(-1 - 1 value)
 	float maxTurn;		//max turn
 	float turnSpeed;	//rate of change for our turn
 
 	float speed;		//movementspeed
-public:
-	void doThrust(float delta);
-	void doTurn(float delta);
+	float maxSpeed;
 
-	void integrate(RigidBody &r);
+	float dirVectX;
+	float dirVectY;
+
+public:
+	SpaceshipLocomotion();
+
+	void doThrust(float value);
+	void doTurn(float value);
+
+	void update(RigidBody &r, float delta);
 
 };
