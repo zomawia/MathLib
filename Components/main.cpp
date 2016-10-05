@@ -45,6 +45,7 @@ void main()
 
 		// draw the player
 		playerTransform.debugDraw();
+		playerRigidBody.debugDraw(playerTransform);
 		
 		for (int i = 0; i < 100; ++i)
 		{			

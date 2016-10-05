@@ -7,7 +7,7 @@ class RigidBody
 public:
 	RigidBody();
 
-	float mass;
+	float mass, drag, angularDrag;
 
 	vec2 force, impulse;
 
@@ -24,4 +24,6 @@ public:
 	void addTorque(float a_torque);
 	
 	void integrate(Transform &trans, float delta);
+
+	void debugDraw(const Transform &trans);
 };

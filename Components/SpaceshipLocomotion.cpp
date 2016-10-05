@@ -13,7 +13,7 @@ SpaceshipLocomotion::SpaceshipLocomotion()
 	maxSpeed = 500.0f;
 
 	stopAction = 0.0f;
-	brakePower = 100.0f;
+	brakePower = 4.0f;
 }
 
 void SpaceshipLocomotion::doThrust(float value)
@@ -42,10 +42,11 @@ void SpaceshipLocomotion::update(const Transform &trans, RigidBody &r)
 	r.addForce(trans.getDirection() * speed * vThrust);
 	r.addTorque(hThrust * turnSpeed);
 
-	//r.addForce(-r.velocity * brakePower * stopAction);
+	r.addForce(-r.velocity * brakePower * stopAction);
+	r.addTorque(-r.angularVelocity * brakePower * stopAction);
 
-	r.velocity *= 0.99f;
-	r.angularVelocity *= 0.9f;
+	//r.velocity *= 0.99f;
+	//r.angularVelocity *= 0.9f;
 
 	hThrust = vThrust = stopAction = 0;
 }
