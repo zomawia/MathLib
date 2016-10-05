@@ -13,7 +13,7 @@ Transform::Transform(float x, float y, float w, float h, float a)
 	facing = a;
 }
 
-vec2 Transform::getDirection()
+vec2 Transform::getDirection() const
 {
 	return fromAngle(facing);
 }
@@ -28,12 +28,12 @@ void Transform::debugDraw()
 	sfw::drawCircle(position.x,
 		position.y, scale.x, scale.y, 0x888888FF);
 
-	vec2 dirEnd = position + getDirection() * scale.x;
-	//vec2 upEnd = position - perp(getDirection()) * scale.x;
+	vec2 dirEnd = position + getDirection() * scale.x * 2;
+	//vec2 upEnd = position - perp(getDirection() * 2) * scale.x * 2;
 
 	sfw::drawLine(position.x, position.y,
 		dirEnd.x, dirEnd.y, RED);
 
 	//sfw::drawLine(position.x, position.y,
-	//	upEnd.x, upEnd.y, GREEN);
+	//	upEnd.x, upEnd.y, RED);
 }

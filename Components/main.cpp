@@ -39,7 +39,7 @@ void main()
 
 
 		// apply rigidbody forces
-		playerLoco.update(playerRigidBody, time);
+		playerLoco.update(playerTransform, playerRigidBody);
 		playerRigidBody.integrate(playerTransform, time);
 		playerCtrl.update(playerLoco);
 

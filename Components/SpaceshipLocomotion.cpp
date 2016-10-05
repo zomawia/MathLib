@@ -6,20 +6,19 @@ SpaceshipLocomotion::SpaceshipLocomotion()
 {
 	vThrust = 0.0f;
 	hThrust = 0.0f;
-	//maxThrust = 10.0f;
-	//thrustSpeed = 1.0f;
 
-	turn = 0.0f;
-	maxTurn = 100.0f;
-	turnSpeed = 100.0f;
+	turnSpeed = 15.0f;
 
-	speed = 10.0f;
-	maxSpeed = 50.0f;
+	speed = 250.0f;
+	maxSpeed = 500.0f;
+
+	stopAction = 0.0f;
+	brakePower = 100.0f;
 }
 
 void SpaceshipLocomotion::doThrust(float value)
 {
-	vThrust = value;
+	vThrust += value;
 	
 	//if (sfw::getKey('W')) vThrust += 1;
 	//if (sfw::getKey('S')) vThrust -= 1;
@@ -27,33 +26,26 @@ void SpaceshipLocomotion::doThrust(float value)
 
 void SpaceshipLocomotion::doTurn(float value)
 {
-	turn = value;
+	hThrust += value;
 	
 	//if (sfw::getKey('A')) turn += 1;
 	//if (sfw::getKey('D')) turn -= 1;
 }
 
-void SpaceshipLocomotion::update(RigidBody &r, float delta)
+void SpaceshipLocomotion::doStop(float value)
 {
-	dirVectX = cos(r.angle);
-	dirVectY = sin(r.angle);
-	
-	r.accel.x += vThrust * dirVectX;
-	r.accel.y += vThrust * dirVectY;
+	stopAction += value;
+}
 
-	if (magnitude(r.velocity) > maxSpeed) {
-		vec2 dir = normal(r.velocity);
-		r.velocity = dir * maxSpeed;
-	}
+void SpaceshipLocomotion::update(const Transform &trans, RigidBody &r)
+{
+	r.addForce(trans.getDirection() * speed * vThrust);
+	r.addTorque(hThrust * turnSpeed);
 
-	r.angularAccel = turn * turnSpeed;
-	
-	//inertia
+	//r.addForce(-r.velocity * brakePower * stopAction);
+
 	r.velocity *= 0.99f;
+	r.angularVelocity *= 0.9f;
 
-	//zero out the thrust values
-	vThrust = 0.0f;
-	turn = 0.0f;
-	
-
+	hThrust = vThrust = stopAction = 0;
 }
