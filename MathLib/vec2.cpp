@@ -160,3 +160,12 @@ vec2 catRomSpline(const vec2 & start, const vec2 & mid, const vec2 & end, float 
 	return cardinalSpline(start, mid, end, 0.5f, alpha);
 }
 
+float vec2::operator[](unsigned idx) const
+{
+	return v[idx];
+}
+
+float & vec2::operator[](unsigned idx)
+{
+	return v[idx];
+}

@@ -27,6 +27,9 @@
     <ClInclude Include="flops.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mat2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Test.cpp">
