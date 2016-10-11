@@ -98,3 +98,13 @@ vec3 cross(const vec3 & rhs, const vec3 & lhs)
 					rhs.z*lhs.x - rhs.x*lhs.z,
 					rhs.x*lhs.y - rhs.y*lhs.x};
 }
+
+float vec3::operator[](unsigned idx) const
+{
+	return v[idx];
+}
+
+float & vec3::operator[](unsigned idx)
+{
+	return v[idx];
+}
