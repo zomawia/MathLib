@@ -38,7 +38,7 @@ void RigidBody::integrate(Transform & trans, float delta)
 {
 	accel = force / mass;	
 	velocity += accel * delta + impulse/mass;
-	trans.position += velocity * delta;	
+	trans.m_position += velocity * delta;	
 	force = impulse = { 0,0 };	
 	
 	// dampening force
@@ -46,7 +46,7 @@ void RigidBody::integrate(Transform & trans, float delta)
 
 	angularAccel = torque / mass;
 	angularVelocity += angularAccel * delta;
-	trans.facing += angularVelocity * delta;
+	trans.m_facing += angularVelocity * delta;
 	torque = 0;
 
 	torque = angularDrag * -angularVelocity;
@@ -55,7 +55,7 @@ void RigidBody::integrate(Transform & trans, float delta)
 
 void RigidBody::debugDraw(const Transform & trans)
 {
-	vec2 p = trans.position;
+	vec2 p = trans.m_position;
 	vec2 v = p + velocity;
 	vec2 a = accel + p;
 

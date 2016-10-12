@@ -93,13 +93,17 @@ int main()
 	mat2 mI = mat2Identity();
 	mat3 mI3 = mat3Identity();
 	mat2 t0 = mat2{ 4,3,2,1 };
+	mat3 nums = mat3{ 8,7,6,5,4,3,2,1,0 };
 	mat3 mat0 = { 0,0,0,0,0,0,0,0,0 };
 	vec2 v0 = { 1,0 };
+	vec3 v30 = { 1,0,0 };
 
 	assert(m0 == m0);
 	assert(mat0 == mat0);
 
 	assert(mI * 2 == 2 * mI);
+	assert(mI3 * 2 == 2 * mI3);
+
 	assert((mI * 2 == mat2{ 2,0,0,2 }));
 	assert((mI3 * 2 == mat3{ 2,0,0,0,2,0,0,0,2 }));
 
@@ -114,7 +118,9 @@ int main()
 
 	assert(mI * mI == mI);
 	assert(mI3 * mI3 == mI3);
+
 	assert((mat2{ 1,2,3,4 }) * mI == (mat2{ 1,2,3,4 }));
+	assert((mat3{ 1,2,3,4,5,6,7,8,9 } * mI3 == (mat3{ 1,2,3,4,5,6,7,8,9 })));
 
 	assert(transpose(mI) == mI);
 	assert(transpose(mI3) == mI3);
@@ -123,8 +129,31 @@ int main()
 	assert(inverse(mI3) == mI3);
 
 	assert(t0 * inverse(t0) == mI);
+	assert(mI3 * inverse(mI3) == mI3);
+
 	assert(mI * v0 == v0);
-	assert((t0 * v0 == vec2{ 4,2 }));	
+	assert(mI3 * v30 == v30);
+
+	assert((t0 * v0 == vec2{ 4,2 }));
+
+	// transform matrix
+	vec3 jorb = { 2,5,1 };
+	assert((scale(vec2{ 5,1 }) * jorb == vec3{10,5,1}));
+
+	vec3 test = rotation(deg2rad(90)) * jorb;
+	
+	printf("%f %f %f\n", jorb[0], jorb[1], jorb[2]);
+	printf("%f %f %f\n", test[0], test[1], test[2]);
+
+	assert(((rotation(deg2rad(90)) * jorb == vec3{ -5,2,1 })));
+
+	assert((translate(vec2{ 0,3 }) * jorb == vec3{ 2,8,1 }));
+
+	mat3 S = scale(vec2{ 2,1 });
+	mat3 T = translate(vec2{ 4,3 });
+	mat3 R = rotation(deg2rad(90));
+	
+	mat3 RES = { 0,-1,0, 2,0,0, 4,3,1 };
 
 	printf("All asserts working!\n");
 	getchar();

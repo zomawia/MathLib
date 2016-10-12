@@ -9,7 +9,7 @@ bool fequals(float lhs, float rhs)
 	// return true if the delta between the 
 	// two operands is less than some threshold
 	
-	return fabsf(lhs - rhs) <= 0.0000002f;
+	return fabsf(lhs - rhs) <= 0.00002f;
 }
 
 float deg2rad(float deg)

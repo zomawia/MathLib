@@ -31,11 +31,11 @@ void main()
 		// change rigidbody velocity according to input
 
 		// wrap
-		if (playerTransform.position.x > SCREEN_WIDTH) playerTransform.position.x = 0.0f;
-		else if (playerTransform.position.x < 0.0f) playerTransform.position.x = SCREEN_WIDTH;
+		if (playerTransform.m_position.x > SCREEN_WIDTH) playerTransform.m_position.x = 0.0f;
+		else if (playerTransform.m_position.x < 0.0f) playerTransform.m_position.x = SCREEN_WIDTH;
 
-		if (playerTransform.position.y > SCREEN_HEIGHT) playerTransform.position.y = 0.0f;
-		else if (playerTransform.position.y < 0.0f) playerTransform.position.y = SCREEN_HEIGHT;
+		if (playerTransform.m_position.y > SCREEN_HEIGHT) playerTransform.m_position.y = 0.0f;
+		else if (playerTransform.m_position.y < 0.0f) playerTransform.m_position.y = SCREEN_HEIGHT;
 
 
 		// apply rigidbody forces

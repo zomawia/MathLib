@@ -47,8 +47,11 @@ mat2 operator-(const mat2 & m)
 
 mat2 operator*(const mat2 & lhs, const mat2 & rhs)
 {
-	return mat2{lhs[0] * rhs[0] + lhs[1] * rhs[2], lhs[0] * rhs[1] + lhs[1] * rhs[3], 
-				lhs[2] * rhs[0] + lhs[3] * rhs[2], lhs[2] * rhs[1] + lhs[3] * rhs[3] };
+	return mat2{
+		lhs[0] * rhs[0] + lhs[1] * rhs[2], 
+		lhs[0] * rhs[1] + lhs[1] * rhs[3], 
+		lhs[2] * rhs[0] + lhs[3] * rhs[2], 
+		lhs[2] * rhs[1] + lhs[3] * rhs[3] };
 }
 
 vec2 operator*(const mat2 & lhs, const vec2 & rhs)
