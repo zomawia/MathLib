@@ -6,6 +6,7 @@
 #include "flops.h"
 #include "mat2.h"
 #include "mat3.h"
+#include <cmath>
 
 int main()
 {
@@ -139,23 +140,23 @@ int main()
 	// transform matrix
 	vec3 jorb = { 2,5,1 };
 	assert((scale(vec2{ 5,1 }) * jorb == vec3{10,5,1}));
-
 	vec3 test = rotation(deg2rad(90)) * jorb;
-	
-	printf("%f %f %f\n", jorb[0], jorb[1], jorb[2]);
-	printf("%f %f %f\n", test[0], test[1], test[2]);
-
 	assert(((rotation(deg2rad(90)) * jorb == vec3{ -5,2,1 })));
-
 	assert((translate(vec2{ 0,3 }) * jorb == vec3{ 2,8,1 }));
 
-	mat3 S = scale(vec2{ 2,1 });
-	mat3 T = translate(vec2{ 4,3 });
-	mat3 R = rotation(deg2rad(90));
-	
-	mat3 RES = { 0,-1,0, 2,0,0, 4,3,1 };
+	// matrix exercise
+	vec3 SVec3 = { 0,0,1 };
+	mat3 S1 = rotation(deg2rad(-90)) * translate(vec2{ 10,0 });
+	mat3 S2 = rotation(deg2rad(45)) * translate(vec2{4,0});
+	mat3 S3 = rotation(deg2rad(45)) * translate(vec2{ -6,0 });
+	mat3 S4 = translate(vec2{ 6,4 });
 
-	printf("All asserts working!\n");
+	vec3 result = S1 * S2 * S3 * S4 * SVec3;
+
+	assert((result == vec3{ 2 * sqrtf(2), -6 - 2 * sqrtf(2) , 1 }));
+
+
+	printf("All asserts working!\n");	
 	getchar();
 
 	return 0;

@@ -88,6 +88,10 @@ mat3 operator*(const mat3 &rhs , const mat3 & lhs)
 
 vec3 operator*(const mat3 & lhs, const vec3 & rhs)
 {
+	// 0 3 6
+	// 1 4 7
+	// 2 5 8
+	
 	return vec3{	lhs[0] * rhs[0] + lhs[3] * rhs[1] + lhs[6] * rhs[2],
 					lhs[1] * rhs[0] + lhs[4] * rhs[1] + lhs[7] * rhs[2],
 					lhs[2] * rhs[0] + lhs[5] * rhs[1] + lhs[8] * rhs[2] };
@@ -152,13 +156,13 @@ mat3 cofactor(const mat3 & lhs)
 
 mat3 inverse(const mat3 & lhs)
 {
-	return ((1/determinant(lhs)) * transpose(cofactor(minor(lhs))));
+	//return ((1/determinant(lhs)) * transpose(cofactor(minor(lhs))));
 
-	//mat3 retval;
-	//retval.c[0] = cross(lhs.c[1], lhs.c[2]);
-	//retval.c[1] = cross(lhs.c[2], lhs.c[0]);
-	//retval.c[2] = cross(lhs.c[0], lhs.c[1]);
-	//return 1 / determinant(lhs) * transpose(retval);
+	mat3 retval;
+	retval.c[0] = cross(lhs.c[1], lhs.c[2]);
+	retval.c[1] = cross(lhs.c[2], lhs.c[0]);
+	retval.c[2] = cross(lhs.c[0], lhs.c[1]);
+	return 1 / determinant(lhs) * transpose(retval);
 }
 
 mat3 transpose(const mat3 & m)
@@ -208,13 +212,6 @@ mat3 rotation(float r)
 
 	retval[3] = -sin(r);
 	retval[4] = cos(r);
-
-	
-	//vec2 d = fromAngle(r);
-	//retval[0] = d.x;
-	//retval[1] = d.y;
-	//retval[3] = -d.y;
-	//retval[4] = -d.x;
 
 	return retval;
 }

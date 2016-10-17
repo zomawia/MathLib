@@ -37,23 +37,21 @@ mat3 Transform::getLocalTransform() const
 
 void Transform::debugDraw(const mat3 &T) const
 {
-	
-
 	mat3 L = T * getLocalTransform();
 
 	vec3 pos = L.c[2];
 
-	vec3 right  = pos + L * vec3{ 1,0,0 };
-	vec3 up		= pos + L * vec3{ 0,1,0 };
+	vec3 right  = L * vec3{ 10,0,1 };
+	vec3 up		= L * vec3{ 0,10,1 };
 
-	sfw::drawCircle(pos.x, pos.y, 12, 12, 0x888888FF);
+	sfw::drawLine(pos.x, pos.y, right.x, right.y, RED);
+	sfw::drawLine(pos.x, pos.y,	up.x, up.y, GREEN);
+
+	sfw::drawCircle(pos.x, pos.y, 24, 4, 0x888888FF);
+
 
 	//vec2 dirEnd = m_position + getDirection() * m_scale.x * 2;
 	//vec2 upEnd = m_position - perp(getDirection() * 2) * m_scale.x * 2;
-
-	sfw::drawLine(pos.x, pos.y, right.x, right.y, RED);
-
-	sfw::drawLine(pos.x, pos.y,	up.x, up.y, GREEN);
 
 	//sfw::drawLine(m_position.x, m_position.y,
 	//	dirEnd.x, dirEnd.y, GREEN);
