@@ -31,6 +31,8 @@ vec2 &operator*=(const float &rhs, vec2 &lhs);
 bool operator==(const vec2 &lhs, const vec2 &rhs);
 bool operator!=(const vec2 &lhs, const vec2 &rhs);
 
+float distance(const vec2 & lhs, const vec2 & rhs);
+
 float magnitude(const vec2 &v);
 
 // divide by magnitude

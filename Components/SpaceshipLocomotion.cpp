@@ -9,11 +9,11 @@ SpaceshipLocomotion::SpaceshipLocomotion()
 
 	turnSpeed = 4.0f;
 
-	speed = 900.0f;
-	maxSpeed = 1000.0f;
+	speed = 450.0f;
+	maxSpeed = 600.0f;
 
 	stopAction = 0.0f;
-	brakePower = 4.0f;
+	brakePower = 6.0f;
 }
 
 void SpaceshipLocomotion::doThrust(float value)

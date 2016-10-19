@@ -72,6 +72,11 @@ bool operator!=(const vec2 & lhs, const vec2 & rhs)
 	return !fequals(lhs.x, rhs.x) || !fequals(lhs.y, rhs.y);
 }
 
+float distance(const vec2 & lhs, const vec2 & rhs)
+{
+	return sqrt((rhs.x - lhs.x)*(rhs.x - lhs.x) + (rhs.y - lhs.y)*(rhs.y - lhs.y));
+}
+
 float magnitude(const vec2 & v)
 {
 	return sqrt((v.x)*(v.x) + (v.y)*(v.y));
