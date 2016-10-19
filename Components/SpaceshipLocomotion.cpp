@@ -9,8 +9,8 @@ SpaceshipLocomotion::SpaceshipLocomotion()
 
 	turnSpeed = 4.0f;
 
-	speed = 450.0f;
-	maxSpeed = 600.0f;
+	speed = 150.0f;
+	maxSpeed = 300.0f;
 
 	stopAction = 0.0f;
 	brakePower = 6.0f;

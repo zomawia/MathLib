@@ -45,6 +45,26 @@ mat3 Transform::getLocalTransform() const
 	return T * R * S;
 }
 
+vec2 Transform::getGlobalPosition() const
+{
+	return getGlobalTransform().c[2].xy;
+}
+
+vec2 Transform::getGlobalRight() const
+{
+	return getGlobalTransform().c[0].xy;
+}
+
+vec2 Transform::getGlobalUp() const
+{
+	return getGlobalTransform().c[1].xy;
+}
+
+float Transform::getGlobalAngle() const
+{
+	return angle(getGlobalRight());
+}
+
 void Transform::debugDraw(const mat3 &T) const
 {
 	mat3 L = T * getGlobalTransform();
@@ -57,7 +77,7 @@ void Transform::debugDraw(const mat3 &T) const
 	sfw::drawLine(pos.x, pos.y, right.x, right.y, RED);
 	sfw::drawLine(pos.x, pos.y,	up.x, up.y, GREEN);
 	
-	vec3 sgp = m_parent ? m_parent->getGlobalTransform().c[2] : pos;
+	vec3 sgp = m_parent ? T * m_parent->getGlobalTransform().c[2] : pos;
 	sfw::drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);
 
 	sfw::drawCircle(pos.x, pos.y, 12, 12, 0x888888FF);

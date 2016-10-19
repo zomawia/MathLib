@@ -25,5 +25,5 @@ public:
 	
 	void integrate(Transform &trans, float delta);
 
-	void debugDraw(const Transform &trans);
+	void debugDraw(const Transform & trans, const mat3 &T);
 };

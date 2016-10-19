@@ -21,11 +21,18 @@ mat3 mat3Identity()
 
 bool operator==(const mat3 & lhs, const mat3 & rhs)
 {
-	return	fequals(lhs[0], rhs[0]) && fequals(lhs[1], rhs[1]) &&
-			fequals(lhs[2], rhs[2]) && fequals(lhs[3], rhs[3]) &&
-			fequals(lhs[4], rhs[4]) && fequals(lhs[5], rhs[5]) && 
-			fequals(lhs[6], rhs[6]) && fequals(lhs[7], rhs[7]) && 
-			fequals(lhs[8], rhs[8]) ;
+	//return	fequals(lhs[0], rhs[0]) && fequals(lhs[1], rhs[1]) &&
+	//		fequals(lhs[2], rhs[2]) && fequals(lhs[3], rhs[3]) &&
+	//		fequals(lhs[4], rhs[4]) && fequals(lhs[5], rhs[5]) && 
+	//		fequals(lhs[6], rhs[6]) && fequals(lhs[7], rhs[7]) && 
+	//		fequals(lhs[8], rhs[8]) ;
+
+	bool retval = true;
+
+	for (int i = 0; i < 3; ++i)
+		retval = retval && lhs.c[i] == rhs.c[i];
+
+	return retval;
 }
 
 bool operator!=(const mat3 & lhs, const mat3 & rhs)
@@ -47,42 +54,49 @@ mat3 operator+(const mat3 & lhs, const mat3 & rhs)
 
 mat3 operator-(const mat3 & lhs, const mat3 & rhs)
 {
-	return mat3{	lhs[0] - rhs[0], lhs[1] - rhs[1], lhs[2] - rhs[2],
-					lhs[3] - rhs[3], lhs[4] - rhs[4], lhs[5] - rhs[5],
-					lhs[6] - rhs[6], lhs[7] - rhs[7], lhs[8] - rhs[8] };
+	//return mat3{	lhs[0] - rhs[0], lhs[1] - rhs[1], lhs[2] - rhs[2],
+	//				lhs[3] - rhs[3], lhs[4] - rhs[4], lhs[5] - rhs[5],
+	//				lhs[6] - rhs[6], lhs[7] - rhs[7], lhs[8] - rhs[8] };
+
+	return lhs + -rhs;
 }
 
 mat3 operator-(const mat3 & m)
 {
-	mat3 retval;
-	for (int i = 0; i < 9; ++i)
-	{
-		retval[i] = m[i] * -1;
-	}
-	return retval;
+	//mat3 retval;
+	//for (int i = 0; i < 9; ++i)
+	//{
+	//	retval[i] = m[i] * -1;
+	//}
+	//return retval;
+
+	return m *-1;
 }
 
-mat3 operator*(const mat3 &rhs , const mat3 & lhs)
+mat3 operator*(const mat3 &lhs , const mat3 & rhs)
 {
-	return mat3{	lhs[0] * rhs[0] + lhs[1] * rhs[3] + lhs[2] * rhs[6],
-					lhs[0] * rhs[1] + lhs[1] * rhs[4] + lhs[2] * rhs[7],
-					lhs[0] * rhs[2] + lhs[1] * rhs[5] + lhs[2] * rhs[8],
+	//return mat3{	lhs[0] * rhs[0] + lhs[1] * rhs[3] + lhs[2] * rhs[6],
+	//				lhs[0] * rhs[1] + lhs[1] * rhs[4] + lhs[2] * rhs[7],
+	//				lhs[0] * rhs[2] + lhs[1] * rhs[5] + lhs[2] * rhs[8],
 
-					lhs[3] * rhs[0] + lhs[4] * rhs[3] + lhs[5] * rhs[6],
-					lhs[3] * rhs[1] + lhs[4] * rhs[4] + lhs[5] * rhs[7],
-					lhs[3] * rhs[2] + lhs[4] * rhs[5] + lhs[5] * rhs[8],
+	//				lhs[3] * rhs[0] + lhs[4] * rhs[3] + lhs[5] * rhs[6],
+	//				lhs[3] * rhs[1] + lhs[4] * rhs[4] + lhs[5] * rhs[7],
+	//				lhs[3] * rhs[2] + lhs[4] * rhs[5] + lhs[5] * rhs[8],
 
-					lhs[6] * rhs[0] + lhs[7] * rhs[3] + lhs[8] * rhs[6],
-					lhs[6] * rhs[1] + lhs[7] * rhs[4] + lhs[8] * rhs[7],
-					lhs[6] * rhs[2] + lhs[7] * rhs[5] + lhs[8] * rhs[8],
-				};
+	//				lhs[6] * rhs[0] + lhs[7] * rhs[3] + lhs[8] * rhs[6],
+	//				lhs[6] * rhs[1] + lhs[7] * rhs[4] + lhs[8] * rhs[7],
+	//				lhs[6] * rhs[2] + lhs[7] * rhs[5] + lhs[8] * rhs[8],
+	//			};
 
-	//mat3 retval;
-	//mat3 At = transpose(lhs);
-	//for (int i = 0; i < 3; ++i)
-	//	for (int j = 0; j < 3; ++j)
-	//		retval[i][j] = dot(At.c[j], B.c[i]);
-	//return retval;
+	mat3 retval;
+
+	mat3 At = transpose(lhs);
+
+	for (int i = 0; i < 3; ++i)
+		for (int j = 0; j < 3; ++j)
+			retval.mm[i][j] = dot(At.c[j], rhs.c[i]);
+
+	return retval;
 
 }
 
@@ -92,9 +106,17 @@ vec3 operator*(const mat3 & lhs, const vec3 & rhs)
 	// 1 4 7
 	// 2 5 8
 	
-	return vec3{	lhs[0] * rhs[0] + lhs[3] * rhs[1] + lhs[6] * rhs[2],
-					lhs[1] * rhs[0] + lhs[4] * rhs[1] + lhs[7] * rhs[2],
-					lhs[2] * rhs[0] + lhs[5] * rhs[1] + lhs[8] * rhs[2] };
+	//return vec3{	lhs[0] * rhs[0] + lhs[3] * rhs[1] + lhs[6] * rhs[2],
+	//				lhs[1] * rhs[0] + lhs[4] * rhs[1] + lhs[7] * rhs[2],
+	//				lhs[2] * rhs[0] + lhs[5] * rhs[1] + lhs[8] * rhs[2] };
+
+	vec3 retval;
+	mat3 At = transpose(lhs);
+
+	for (int i = 0; i < 3; ++i)
+		retval[i] = dot(At.c[i], rhs);
+
+	return retval;
 }
 
 mat3 operator*(const mat3 & lhs, float rhs)
@@ -106,27 +128,31 @@ mat3 operator*(const mat3 & lhs, float rhs)
 	}
 
 	return retval;
+
+	return lhs*rhs;
 	
 }
 
 mat3 operator*(float rhs, const mat3 & lhs)
 {
-	mat3 retval;
-	for (int i = 0; i < 9; ++i)
-	{
-		retval[i] = lhs[i] * rhs;
-	}
-	
-	return retval;
+	//mat3 retval;
+	//for (int i = 0; i < 9; ++i)
+	//{
+	//	retval[i] = lhs[i] * rhs;
+	//}
+	//
+	//return retval;
+
+	return lhs*rhs;
 }
 
 float determinant(const mat3 & lhs)
 {
-	return	lhs[0] * (lhs[4] * lhs[8] - lhs[5] * lhs[7]) - 
+	/*return	lhs[0] * (lhs[4] * lhs[8] - lhs[5] * lhs[7]) - 
 			lhs[1] * (lhs[3] * lhs[8] - lhs[5] * lhs[6]) +
 			lhs[2] * (lhs[3] * lhs[7] - lhs[4] * lhs[6]);
-
-	// return dot(lhs.c[0], cross(lhs.c[1], lhs.c[2]));
+*/
+	 return dot(lhs.c[0], cross(lhs.c[1], lhs.c[2]));
 
 }
 
@@ -170,16 +196,16 @@ mat3 transpose(const mat3 & m)
 	// copy the diagonal
 	mat3 retval = m;
 	
-	retval[1] = m[3];
-	retval[2] = m[6];
-	retval[3] = m[1];	
-	retval[5] = m[7];
-	retval[6] = m[2];
-	retval[7] = m[5];
+	//retval[1] = m[3];
+	//retval[2] = m[6];
+	//retval[3] = m[1];	
+	//retval[5] = m[7];
+	//retval[6] = m[2];
+	//retval[7] = m[5];
 
-	//for (unsigned i = 0; i < 3; ++i)
-	//	for (unsigned j = 0; j < 3; ++j)
-	//		retval[i][j] = m[j][i];
+	for (unsigned i = 0; i < 3; ++i)
+		for (unsigned j = 0; j < 3; ++j)
+			retval.mm[i][j] = m.mm[j][i];
 
 	return retval;
 }
@@ -206,12 +232,18 @@ mat3 rotation(float r)
 	// 3,4,5 : column 2
 	// 6,7,8 : column 3
 	
+	//mat3 retval = mat3Identity();
+	//retval[0] = cos(r);
+	//retval[1] = sin(r);
+
+	//retval[3] = -sin(r);
+	//retval[4] = cos(r);
+
+	//return retval;
+
+	vec2 d = fromAngle(r);
 	mat3 retval = mat3Identity();
-	retval[0] = cos(r);
-	retval[1] = sin(r);
-
-	retval[3] = -sin(r);
-	retval[4] = cos(r);
-
+	retval.c[0].xy = d;
+	retval.c[1].xy = -perp(d);
 	return retval;
 }

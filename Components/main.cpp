@@ -9,86 +9,94 @@
 #include "SpaceshipController.h"
 #include "mat3.h"
 #include "PlanetaryMotor.h"
+#include "PlanetaryRenderer.h"
+#include "ShipRenderer.h"
 
 void main()
 {
-	float SCREEN_WIDTH = 800, SCREEN_HEIGHT = 600;
+	float SCREEN_WIDTH = 1200, SCREEN_HEIGHT = 1200;
 	sfw::initContext(SCREEN_WIDTH, SCREEN_HEIGHT);
 	
-	//Transform playerTransform(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+	Transform playerTransform(200, 200);
+	RigidBody playerRigidBody;
+	SpaceshipLocomotion playerLoco;
+	SpaceshipController playerCtrl;
+	ShipRenderer playerRenderer(WHITE, 20);
+
 	//Transform ST1(50, 0);
 	//Transform ST2(50, 0);
 	//Transform ST3(50, 0);
 	//Transform ST4(50, 0);
+	//Transform tank(12, -8);
+	//vec2 WP1 = { 15,18 };
+	//vec2 WP2 = { 5,8 };
+	//vec2 WP3 = { -22, -5 };
+	//vec2 WP4 = { 4, -2 };
+	//vec2 WP5 = { -6,9 };
+	//vec2 WP6 = { 18,88 };	
+	//vec2 WP7 = { -22,-90 }; 
+	//float dist = 0;
+	//// 306
+	//dist += distance(tank.m_position, WP1);
+	//dist += distance(WP1, WP6);
+	//dist += distance(WP6, WP2);
+	//dist += distance(WP2, WP4);
+	//dist += distance(WP4, WP7);
+	//dist += distance(WP7, WP5);
+	//dist += distance(WP5, WP3);
+	//printf("%f\n", dist);
+	//// 293
+	//dist = 0;
+	//dist += distance(tank.m_position, WP4);
+	//dist += distance(WP4, WP2);
+	//dist += distance(WP2, WP1);
+	//dist += distance(WP1, WP6);
+	//dist += distance(WP6, WP5);
+	//dist += distance(WP5, WP3);
+	//dist += distance(WP3, WP7);
+	//printf("%f", dist);
+	//mat3 RES = translate(vec2{ 12, -8 }) * rotation(deg2rad(80));
+	//vec2 POI1 = { -4,-4 };
+	//vec2 POI2 = { 21,45 };
+	//vec2 POI3 = { 7, -2148 };
+	//vec2 POI4 = { 0,0 };
 
-	Transform tank(12, -8);
+	// Sun
+	Transform sunTransform;
+	sunTransform.m_position = vec2{ (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) };
+	RigidBody sunRbody;
+	PlanetaryMotor sunMotor;
+	sunMotor.m_rotationSpeed = 2;
+	PlanetaryRenderer sunRenderer(YELLOW, 100);
 
-	vec2 WP1 = { 15,18 };
-	vec2 WP2 = { 5,8 };
-	vec2 WP3 = { -22, -5 };
-	vec2 WP4 = { 4, -2 };
-	vec2 WP5 = { -6,9 };
-	vec2 WP6 = { 18,88 };	
-	vec2 WP7 = { -22,-90 }; 
+	// Planet
+	Transform plan1;
+	plan1.m_position = vec2{ 120, 0 };
+	plan1.m_parent = &sunTransform;
+	RigidBody plan1RB;
+	PlanetaryMotor plan1motor;
+	plan1motor.m_rotationSpeed = 5;
+	PlanetaryRenderer plan1renderer(GREEN, 20);
 
-	float dist = 0;
-	// 306
-	dist += distance(tank.m_position, WP1);
-	dist += distance(WP1, WP6);
-	dist += distance(WP6, WP2);
-	dist += distance(WP2, WP4);
-	dist += distance(WP4, WP7);
-	dist += distance(WP7, WP5);
-	dist += distance(WP5, WP3);
-	printf("%f\n", dist);
-
-	// 293
-	dist = 0;
-	dist += distance(tank.m_position, WP4);
-	dist += distance(WP4, WP2);
-	dist += distance(WP2, WP1);
-	dist += distance(WP1, WP6);
-	dist += distance(WP6, WP5);
-	dist += distance(WP5, WP3);
-	dist += distance(WP3, WP7);
-	printf("%f", dist);
-
-	mat3 RES = translate(vec2{ 12, -8 }) * rotation(deg2rad(80));
-
-	vec2 POI1 = { -4,-4 };
-	vec2 POI2 = { 21,45 };
-	vec2 POI3 = { 7, -2148 };
-	vec2 POI4 = { 0,0 };
-
-	//Transform sunTransform;
-	//sunTransform.m_position = vec2{ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
-	//RigidBody sunBody;
-	//PlanetaryMotor sunMotor;
-	//sunMotor.m_rotationSpeed = 5;
-
-	//Transform plan1;
-	//plan1.m_position = vec2{ 100,0 };
-	//plan1.m_parent = &sunTransform;
-
-	//Transform moon1;
-	//moon1.m_position = vec2{ 20,0 };
-	//moon1.m_parent = &plan1;
+	// Moon
+	Transform moon1;
+	moon1.m_position = vec2{ 25, 0 };
+	moon1.m_parent = &plan1;
+	RigidBody moon1RB;
+	PlanetaryMotor moon1motor;
+	moon1motor.m_rotationSpeed = 5;
+	PlanetaryRenderer moon1renderer(WHITE, 7);
 
 	//ST1.m_parent = &playerTransform;
 	//ST2.m_parent = &ST1;
 	//ST3.m_parent = &ST2;
 	//ST4.m_parent = &ST3;
 
-	//RigidBody playerRigidBody;
-	//SpaceshipLocomotion playerLoco;
-	//SpaceshipController playerCtrl;
+	Transform cameraTransform;
 
-	//playerRigidBody.velocity = vec2{ 0,0 };
 	//float gravity = 9.8f;
 	//signed int boneSelection = 0;
-
-	sfw::initContext();
-	
+	vec2 cameraPosition = { 0,0 };
 
 	while (sfw::stepContext())	{			
 		float time = sfw::getDeltaTime();
@@ -97,13 +105,11 @@ void main()
 		//if (playerTransform.m_position.x > SCREEN_WIDTH) playerTransform.m_position.x = 0.0f;
 		//else if (playerTransform.m_position.x < 0.0f) playerTransform.m_position.x = SCREEN_WIDTH;
 		//if (playerTransform.m_position.y > SCREEN_HEIGHT) playerTransform.m_position.y = 0.0f;
-		//else if (playerTransform.m_position.y < 0.0f) playerTransform.m_position.y = SCREEN_HEIGHT;
-		//
+		//else if (playerTransform.m_position.y < 0.0f) playerTransform.m_position.y = SCREEN_HEIGHT;		
 		//boneSelection += sfw::getKey('E');
 		//if (boneSelection > 4) boneSelection = 0;
 		//boneSelection -= sfw::getKey('Q');
-		//if (boneSelection < 0) boneSelection = 4;		
-
+		//if (boneSelection < 0) boneSelection = 4;	
 		//switch (boneSelection)
 		//{
 		//case 0:
@@ -131,18 +137,56 @@ void main()
 		//	playerRigidBody.integrate(playerTransform, time);
 		//}
 
-		//playerCtrl.update(playerLoco);		
-		//playerRigidBody.debugDraw(playerTransform);
-		//
-		//playerTransform.debugDraw();
-		//ST1.debugDraw();
-		//ST2.debugDraw();
-		//ST3.debugDraw();
-		//ST4.debugDraw();	
+		// Apply rigidbody forces
+		playerCtrl.update(playerLoco);
+		playerLoco.update(playerTransform, playerRigidBody);
+		playerRigidBody.integrate(playerTransform, time);
+
+		// Draw the player
+
+		// Update Logic
+		sunMotor.update(sunRbody);
+		plan1motor.update(plan1RB);
+		moon1motor.update(moon1RB);
+
 		
-		//sunTransform.debugDraw();
-		//sunBody.integrate(sunTransform, time);
-		//sunMotor.update(sunBody);
+		moon1RB.integrate(moon1, time);
+		plan1RB.integrate(plan1, time);
+		sunRbody.integrate(sunTransform, time);
+
+		vec2 gp = playerTransform.getGlobalPosition();
+		
+		// Use Lerp to chase the players ship
+		cameraTransform.m_position
+			= lerp(cameraTransform.m_position,
+				(playerTransform.getGlobalPosition() + sunTransform.getGlobalPosition())/2,
+				sfw::getDeltaTime() * 10);
+
+		// translation is the position of the camera on the screen
+		// the scale describes the zoom
+		mat3 proj = translate(vec2{ 600, 600 }) * scale(vec2{ 3,3 });
+		mat3 view = inverse(cameraTransform.getGlobalTransform());
+
+		mat3 camera = proj * view;
+
+
+		// Render Drawing
+		playerRenderer.draw(playerTransform, camera);
+		sunRenderer.draw(sunTransform, camera);
+		plan1renderer.draw(plan1, camera);
+		moon1renderer.draw(moon1, camera);
+
+
+
+		// Debug Drawing
+
+		//playerTransform.debugDraw(camera);
+		//playerRigidBody.debugDraw(playerTransform, camera);
+		//sunTransform.debugDraw(camera);		
+		//plan1.debugDraw(camera);
+		//moon1.debugDraw(camera);
+		//cameraTransform.debugDraw(camera);
+		
 		
 	}
 

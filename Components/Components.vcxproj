@@ -120,14 +120,18 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlanetaryMotor.cpp" />
+    <ClCompile Include="PlanetaryRenderer.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="ShipRenderer.cpp" />
     <ClCompile Include="SpaceshipController.cpp" />
     <ClCompile Include="SpaceshipLocomotion.cpp" />
     <ClCompile Include="transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlanetaryMotor.h" />
+    <ClInclude Include="PlanetaryRenderer.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="ShipRenderer.h" />
     <ClInclude Include="SpaceshipController.h" />
     <ClInclude Include="SpaceshipLocomotion.h" />
     <ClInclude Include="transform.h" />

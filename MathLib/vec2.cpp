@@ -29,7 +29,7 @@ vec2 operator/(const vec2 & lhs, float rhs)
 
 vec2 operator-(const vec2 & v)
 {
-	return vec2{-v.x, -v.y};
+	return v * -1;
 }
 
 vec2 & operator+=(vec2 & lhs, const vec2 & rhs)
@@ -92,14 +92,14 @@ float dot(const vec2 & rhs, const vec2 & lhs)
 	return (rhs.x * lhs.x) + (rhs.y * lhs.y);
 }
 
-float angleBetween(const vec2 & rhs, const vec2 & lhs)
+float angleBetween(const vec2 & lhs, const vec2 & rhs)
 {
-	return acos(dot(normal(rhs), normal(lhs)));
+	return acos(dot(normal(lhs), normal(rhs)));
 }
 
 vec2 perp(const vec2 & v)
 {
-	return vec2{ v.y, -v.x };
+	return {v.y, -v.x };
 }
 
 // toa = tan(a) = Opposite / Adjacent

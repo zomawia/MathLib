@@ -42,7 +42,7 @@ vec2 normal(const vec2 &v);
 float dot(const vec2 &rhs, const vec2 &lhs);
 
 // returns in radians
-float angleBetween(const vec2 &rhs, const vec2 &lhs);
+float angleBetween(const vec2 &lhs, const vec2 &rhs);
 
 // right handed
 vec2 perp(const vec2 &v);
