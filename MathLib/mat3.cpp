@@ -156,6 +156,11 @@ float determinant(const mat3 & lhs)
 
 }
 
+vec2 amul(const mat3 & A, const vec2 & V)
+{
+	return (A * vec3{ V.x, V.y, 1 }).xy;
+}
+
 mat3 minor(const mat3 & lhs)
 {
 	return mat3 {

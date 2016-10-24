@@ -40,6 +40,9 @@ mat3 operator*(float rhs, const mat3 &lhs);
 // determinant(mat3)
 float determinant(const mat3 &lhs);
 
+//affine multiplication
+vec2 amul(const mat3 &A, const vec2 &V);
+
 // matrix of minors
 mat3 minor(const mat3 &lhs);
 

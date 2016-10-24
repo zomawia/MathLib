@@ -17,11 +17,12 @@ void main()
 	float SCREEN_WIDTH = 1200, SCREEN_HEIGHT = 1200;
 	sfw::initContext(SCREEN_WIDTH, SCREEN_HEIGHT);
 	
-	Transform playerTransform(200, 200);
+	Transform playerTransform(300, 300);
+	playerTransform.m_scale = vec2{ 5,5 };
 	RigidBody playerRigidBody;
 	SpaceshipLocomotion playerLoco;
 	SpaceshipController playerCtrl;
-	ShipRenderer playerRenderer(WHITE, 20);
+	ShipRenderer playerRenderer(WHITE);
 
 	//Transform ST1(50, 0);
 	//Transform ST2(50, 0);
@@ -67,7 +68,7 @@ void main()
 	RigidBody sunRbody;
 	PlanetaryMotor sunMotor;
 	sunMotor.m_rotationSpeed = 2;
-	PlanetaryRenderer sunRenderer(YELLOW, 100);
+	PlanetaryRenderer sunRenderer(YELLOW, 50);
 
 	// Planet
 	Transform plan1;
@@ -76,7 +77,7 @@ void main()
 	RigidBody plan1RB;
 	PlanetaryMotor plan1motor;
 	plan1motor.m_rotationSpeed = 5;
-	PlanetaryRenderer plan1renderer(GREEN, 20);
+	PlanetaryRenderer plan1renderer(GREEN, 7);
 
 	// Moon
 	Transform moon1;
@@ -85,7 +86,7 @@ void main()
 	RigidBody moon1RB;
 	PlanetaryMotor moon1motor;
 	moon1motor.m_rotationSpeed = 5;
-	PlanetaryRenderer moon1renderer(WHITE, 7);
+	PlanetaryRenderer moon1renderer(WHITE, 2);
 
 	//ST1.m_parent = &playerTransform;
 	//ST2.m_parent = &ST1;
@@ -164,7 +165,7 @@ void main()
 
 		// translation is the position of the camera on the screen
 		// the scale describes the zoom
-		mat3 proj = translate(vec2{ 600, 600 }) * scale(vec2{ 3,3 });
+		mat3 proj = translate(vec2{ 600, 600 }) * scale(vec2{ 2,2 });
 		mat3 view = inverse(cameraTransform.getGlobalTransform());
 
 		mat3 camera = proj * view;
@@ -181,7 +182,8 @@ void main()
 		// Debug Drawing
 
 		//playerTransform.debugDraw(camera);
-		//playerRigidBody.debugDraw(playerTransform, camera);
+		playerRigidBody.debugDraw(playerTransform, camera);
+		sunRbody.debugDraw(sunTransform, camera);
 		//sunTransform.debugDraw(camera);		
 		//plan1.debugDraw(camera);
 		//moon1.debugDraw(camera);
