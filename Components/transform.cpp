@@ -1,6 +1,8 @@
 #include "transform.h"
 #include "sfwdraw.h"
 #include <cmath>
+#include "shapes.h"
+#include "shapedraw.h"
 
 Transform::Transform(float x, float y, float w, float h, float a)
 {
@@ -68,8 +70,9 @@ float Transform::getGlobalAngle() const
 void Transform::debugDraw(const mat3 &T) const
 {
 	mat3 L = T * getGlobalTransform();
+	//AABB = L
 
-	vec3 pos = L.c[2];	
+	/*vec3 pos = L.c[2];	
 
 	vec3 right  = L * vec3{ 10,0,1 };
 	vec3 up		= L * vec3{ 0,10,1 };
@@ -78,7 +81,9 @@ void Transform::debugDraw(const mat3 &T) const
 	sfw::drawLine(pos.x, pos.y,	up.x, up.y, GREEN);
 	
 	vec3 sgp = m_parent ? T * m_parent->getGlobalTransform().c[2] : pos;
-	sfw::drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);
+	sfw::drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);*/
 
-	sfw::drawCircle(pos.x, pos.y, 12, 12, 0x888888FF);
+	//drawCircle(L * Circle{ 0,0,4 }, MAGENTA);
+	drawAABB(L * AABB{0,0,10,10}, WHITE);
+	//drawAABB()
 }

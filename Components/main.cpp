@@ -11,6 +11,7 @@
 #include "PlanetaryMotor.h"
 #include "PlanetaryRenderer.h"
 #include "ShipRenderer.h"
+#include "shapedraw.h"
 
 void main()
 {
@@ -18,7 +19,7 @@ void main()
 	sfw::initContext(SCREEN_WIDTH, SCREEN_HEIGHT);
 	
 	Transform playerTransform(300, 300);
-	playerTransform.m_scale = vec2{ 5,5 };
+	playerTransform.m_scale = vec2{ 3,3 };
 	RigidBody playerRigidBody;
 	SpaceshipLocomotion playerLoco;
 	SpaceshipController playerCtrl;
@@ -67,7 +68,7 @@ void main()
 	sunTransform.m_position = vec2{ (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) };
 	RigidBody sunRbody;
 	PlanetaryMotor sunMotor;
-	sunMotor.m_rotationSpeed = 2;
+	sunMotor.m_rotationSpeed = .2;
 	PlanetaryRenderer sunRenderer(YELLOW, 50);
 
 	// Planet
@@ -76,16 +77,16 @@ void main()
 	plan1.m_parent = &sunTransform;
 	RigidBody plan1RB;
 	PlanetaryMotor plan1motor;
-	plan1motor.m_rotationSpeed = 5;
+	plan1motor.m_rotationSpeed = .2;
 	PlanetaryRenderer plan1renderer(GREEN, 7);
 
 	// Moon
 	Transform moon1;
-	moon1.m_position = vec2{ 25, 0 };
+	moon1.m_position = vec2{ 15, 0 };
 	moon1.m_parent = &plan1;
 	RigidBody moon1RB;
 	PlanetaryMotor moon1motor;
-	moon1motor.m_rotationSpeed = 5;
+	moon1motor.m_rotationSpeed = .5;
 	PlanetaryRenderer moon1renderer(WHITE, 2);
 
 	//ST1.m_parent = &playerTransform;
@@ -181,14 +182,13 @@ void main()
 
 		// Debug Drawing
 
-		//playerTransform.debugDraw(camera);
-		playerRigidBody.debugDraw(playerTransform, camera);
-		sunRbody.debugDraw(sunTransform, camera);
+		playerTransform.debugDraw(camera);
+		//playerRigidBody.debugDraw(playerTransform, camera);
+		//sunRbody.debugDraw(sunTransform, camera);
 		//sunTransform.debugDraw(camera);		
 		//plan1.debugDraw(camera);
 		//moon1.debugDraw(camera);
 		//cameraTransform.debugDraw(camera);
-		
 		
 	}
 

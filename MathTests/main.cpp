@@ -7,6 +7,7 @@
 #include "mat2.h"
 #include "mat3.h"
 #include <cmath>
+#include "shapes.h"
 
 int main()
 {
@@ -155,6 +156,22 @@ int main()
 
 	assert((result == vec3{ 2 * sqrtf(2), -6 - 2 * sqrtf(2) , 1 }));
 
+
+	Circle c = { 0,0,5 };
+	Circle tester = rotation(45) * c;
+
+	assert((translate(vec2{ 4,0 }) * c == Circle{ 4,0,5 }));
+
+	assert((scale(vec2{ 2, 1 }) * c == Circle{ 0,0,10 }));	
+	assert((scale(vec2{ 2, 2 }) * c == Circle{ 0,0,10 }));
+	assert((scale(vec2{ 1, 2 }) * c == Circle{ 0,0,10 }));
+	assert((scale(vec2{ -1, 1 }) * c == Circle{ 0,0,5 }));
+
+	assert((rotation(45) * c == Circle{ 0,0,5 }));
+
+	AABB testA = { 1,2,3,4 };
+	assert((testA.min() == vec2{ -2, -2 }));
+	assert((testA.max() == vec2{ 4, 6 }));
 
 	printf("All asserts working!\n");	
 	getchar();
