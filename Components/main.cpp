@@ -19,7 +19,7 @@ void main()
 	sfw::initContext(SCREEN_WIDTH, SCREEN_HEIGHT);
 	
 	Transform playerTransform(300, 300);
-	playerTransform.m_scale = vec2{ 3,3 };
+	playerTransform.m_scale = vec2{ 10,10 };
 	RigidBody playerRigidBody;
 	SpaceshipLocomotion playerLoco;
 	SpaceshipController playerCtrl;
@@ -77,7 +77,7 @@ void main()
 	plan1.m_parent = &sunTransform;
 	RigidBody plan1RB;
 	PlanetaryMotor plan1motor;
-	plan1motor.m_rotationSpeed = .2;
+	plan1motor.m_rotationSpeed = 3;
 	PlanetaryRenderer plan1renderer(GREEN, 7);
 
 	// Moon
@@ -86,7 +86,7 @@ void main()
 	moon1.m_parent = &plan1;
 	RigidBody moon1RB;
 	PlanetaryMotor moon1motor;
-	moon1motor.m_rotationSpeed = .5;
+	moon1motor.m_rotationSpeed = 15;
 	PlanetaryRenderer moon1renderer(WHITE, 2);
 
 	//ST1.m_parent = &playerTransform;

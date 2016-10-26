@@ -84,6 +84,6 @@ void Transform::debugDraw(const mat3 &T) const
 	sfw::drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);*/
 
 	//drawCircle(L * Circle{ 0,0,4 }, MAGENTA);
-	drawAABB(L * AABB{0,0,10,10}, WHITE);
+	drawAABB(L * AABB{0,0,1,2}, WHITE);
 	//drawAABB()
 }
