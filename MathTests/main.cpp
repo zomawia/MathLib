@@ -157,6 +157,7 @@ int main()
 
 	assert((result == vec3{ 2 * sqrtf(2), -6 - 2 * sqrtf(2) , 1 }));
 
+	// Circle
 
 	Circle c = { 0,0,5 };
 	Circle tester = rotation(45) * c;
@@ -170,13 +171,32 @@ int main()
 
 	assert((rotation(45) * c == Circle{ 0,0,5 }));
 
+	// AABB
+
 	AABB testA = { 1,2,3,4 };
 	assert((testA.min() == vec2{ -2, -2 }));
 	assert((testA.max() == vec2{ 4, 6 }));
 
+	// Collision1D
+
 	assert(collisionDetection1D(0, 2, 1, 3).result() == true);
 	assert(collisionDetection1D(0, 2, 1, 3).penetrationDepth == 1);
+	assert(collisionDetection1D(1, 3, 0, 2).penetrationDepth == 1);
 
+	assert(collisionDetection1D(0, 2, 1, 3).collisionNormal == 1);
+	assert(collisionDetection1D(1, 3, 0, 2).collisionNormal == -1);
+
+	// swepts
+	assert(sweptDetection1D(0,1,5,  3,4,0).entryTime == .4f);
+	assert(sweptDetection1D(0, 1, -5, 3, 4, 10).result() == false);
+
+	// boxCOllision
+	AABB boxA = { 0,0,2,4 }; 
+	AABB boxB = { 2,2,2,4 };
+
+	assert(boxCollision(boxA, boxB).penetrationDepth == 2);
+	assert((boxCollision(boxA, boxB).collisionNormal == vec2{ 1,0 }));
+	assert((boxCollision(boxB, boxA).collisionNormal == vec2{ -1,0 }));
 
 	printf("All asserts working!\n");	
 	getchar();
