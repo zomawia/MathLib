@@ -93,13 +93,15 @@ CollisionDataSwept boxCollisionSwept(const AABB & A, const vec2 & dA, const AABB
 	//retval.entryTime = fmax(xvalue.entryTime, yvalue.entryTime);
 	//retval.exitTime  = fmin(xvalue.exitTime, yvalue.exitTime);
 
-	if (xvalue.entryTime > yvalue.entryTime && xSwept) {
+	if (xvalue.entryTime > yvalue.entryTime || xSwept && !ySwept) {
 		retval.collisionNormal = xvalue.collisionNormal * vec2{ 1,0 };
 		retval.entryTime = xvalue.entryTime;
+		retval.collides = ySwept || Ydis.result();
 	}
 	else if (ySwept) {
 		retval.collisionNormal = yvalue.collisionNormal * vec2{ 0,1 };
 		retval.entryTime = yvalue.entryTime;
+		retval.collides = xSwept || Xdis.result();
 	}
 
 	if (yvalue.exitTime < xvalue.exitTime || isinf(xvalue.exitTime) ) 
@@ -116,12 +118,12 @@ CollisionData planeBoxCollision(const Plane & P, const AABB & B)
 	CollisionData retval;
 
 	float boxA = dot(P.dir, vec2{ B.min().x, B.max().y });
-	float boxB = dot(P.dir, vec2{ B.max().x, B.max().y });	
+	float boxB = dot(P.dir, B.max());	
 	float boxC = dot(P.dir, vec2{ B.max().x, B.min().y });	
-	float boxD = dot(P.dir, vec2{ B.min().x, B.min().y });
+	float boxD = dot(P.dir, B.min());
 	
 	float volumeMin = fminf(boxA, fminf(boxB, fminf(boxC, boxD)));
-	float volumeMax = fmaxf(boxA, fmaxf(boxB, fmaxf(boxC, boxD)));
+	//float volumeMax = fmaxf(boxA, fmaxf(boxB, fmaxf(boxC, boxD)));	//not needed
 
 	float planeMax = dot(P.pos, P.dir);
 
@@ -131,28 +133,32 @@ CollisionData planeBoxCollision(const Plane & P, const AABB & B)
 	return retval;
 }
 
-CollisionDataSwept planeBoxCollisionSwept(const Plane & P, const AABB & B, const vec2 & Bvel)
+CollisionDataSwept planeBoxCollisionSwept(const Plane & P, const vec2 &Pvel,
+	const AABB & B, const vec2 & Bvel)
 {
 	CollisionDataSwept retval;
 	
 	float boxA = dot(P.dir, vec2{ B.min().x, B.max().y });
-	float boxB = dot(P.dir, vec2{ B.max().x, B.max().y });
+	float boxB = dot(P.dir, B.max());
 	float boxC = dot(P.dir, vec2{ B.max().x, B.min().y });
-	float boxD = dot(P.dir, vec2{ B.min().x, B.min().y });
+	float boxD = dot(P.dir, B.min());
+
 	float VelD = dot(P.dir, Bvel);
-	float VelE = dot(P.pos, Bvel);
-	float planeMax = dot(P.pos, P.dir);
+	float VelE = dot(P.dir, Pvel);
+	VelE = 0.f;
+	float planeMax = dot(P.dir, P.pos);
+
 	float volumeMin = fminf(boxA, fminf(boxB, fminf(boxC, boxD)));
 	float volumeMax = fmaxf(boxA, fmaxf(boxB, fmaxf(boxC, boxD)));
 
-	float entry = (volumeMin - planeMax)/(VelD - VelE);
-	float max = (volumeMax - planeMax) / (VelD - VelE);
-	
-	//not done yet
+	retval.entryTime = (volumeMin - planeMax)/(VelE - VelD);
+	retval.exitTime = (volumeMax - planeMax) / (VelE - VelD);
+	retval.collisionNormal = P.dir;
+
 	return retval;
 }
 
 bool CollisionDataSwept::result() const
 {
-	return 0 <= entryTime <= exitTime;
+	return entryTime >= 0 && entryTime <= 1 && collides;
 }

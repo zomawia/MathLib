@@ -221,6 +221,9 @@ int main()
 	assert(planeBoxCollision(P4, Bp).result());
 	assert(!planeBoxCollision(P5, Bp).result());
 
+	Plane P6 = { 10,0,-1,0 }; //fully overlapping
+
+	assert(fequals(planeBoxCollisionSwept(P6, vec2{ 1,0 }, Bp, vec2{ 1,0 }).entryTime, 6.f));
 
 	printf("All asserts working!\n");	
 	getchar();
