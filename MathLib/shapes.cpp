@@ -63,6 +63,21 @@ bool operator==(const AABB & A, const AABB & B)
 	return A==B;
 }
 
+Plane operator*(const mat3 & T, const Plane & P)
+{
+	Plane retval;
+	retval.pos =
+		(T * vec3{ P.pos.x, P.pos.y, 1 }).xy;
+	retval.dir =
+		normal(T * vec3{ P.dir.x, P.dir.y, 0 }).xy;
+	return retval;
+}
+
+bool operator==(const Plane & A, const Plane & B)
+{
+	return A == B;
+}
+
 vec2 AABB::min() const
 {
 	return pos - he;

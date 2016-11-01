@@ -198,6 +198,30 @@ int main()
 	assert((boxCollision(boxA, boxB).collisionNormal == vec2{ 1,0 }));
 	assert((boxCollision(boxB, boxA).collisionNormal == vec2{ -1,0 }));
 
+	// boxCollisionSwept
+	AABB As = { 0,0,1,1};
+	AABB Bs = { 0,10,1,1 };
+	assert(fequals(boxCollisionSwept(As, vec2{ 0,1 }, Bs, vec2{ 0,-1 }).entryTime, 4));
+	assert(fequals(boxCollisionSwept(As, vec2{ 0,-1 }, Bs, vec2{ 0,1 }).entryTime, -6));
+	assert(fequals(boxCollisionSwept(As, vec2{ 0,-1 }, Bs, vec2{ 0,1 }).exitTime, -4));
+
+	// planeBoxCollision
+	AABB Bp = { 0,0,4,4 };
+
+	Plane P1 = { 0,0,0,1 };		// clipping case
+	Plane P2 = { 0,-10, 0, 1 }; // non overlapping
+	Plane P3 = { 0, 10, 0, 1 }; // fully overlapping
+
+	Plane P4 = { vec2{6,6}, normal(vec2{-1,1}) };	//overlapping
+	Plane P5 = { vec2{6,6}, normal(vec2{-1,-1}) };	//non-overlapping
+
+	assert(planeBoxCollision(P1, Bp).result());
+	assert(!planeBoxCollision(P2, Bp).result());
+	assert(planeBoxCollision(P3, Bp).result());
+	assert(planeBoxCollision(P4, Bp).result());
+	assert(!planeBoxCollision(P5, Bp).result());
+
+
 	printf("All asserts working!\n");	
 	getchar();
 

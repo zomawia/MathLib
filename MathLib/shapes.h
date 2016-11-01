@@ -26,8 +26,12 @@ bool operator==(const AABB &A, const AABB &B);
 
 
 struct Plane {
+	vec2 pos, dir;
 
 };
+
+Plane operator*(const mat3 &T, const Plane &P);
+bool operator==(const Plane&A, const Plane &B);
 
 struct Ray {
 	

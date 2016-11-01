@@ -71,8 +71,8 @@ void Transform::debugDraw(const mat3 &T) const
 {
 	mat3 L = T * getGlobalTransform();
 	//AABB = L
-
-	/*vec3 pos = L.c[2];	
+/*
+	vec3 pos = L.c[2];	
 
 	vec3 right  = L * vec3{ 10,0,1 };
 	vec3 up		= L * vec3{ 0,10,1 };
@@ -85,5 +85,6 @@ void Transform::debugDraw(const mat3 &T) const
 
 	//drawCircle(L * Circle{ 0,0,4 }, MAGENTA);
 	drawAABB(L * AABB{0,0,1,2}, WHITE);
+	drawPlane(L * Plane{ 0,0,0,1}, YELLOW);
 	//drawAABB()
 }
