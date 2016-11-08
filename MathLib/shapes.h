@@ -27,24 +27,31 @@ bool operator==(const AABB &A, const AABB &B);
 
 struct Plane {
 	vec2 pos, dir;
-
 };
-
 Plane operator*(const mat3 &T, const Plane &P);
 bool operator==(const Plane&A, const Plane &B);
 
 struct Ray {
 	
 };
-
-struct Hull {
-
-};
-
-
-
-AABB	operator*(const mat3 &T, const AABB   &B);
-Plane	operator*(const mat3 &T, const Plane  &P);
 Ray		operator*(const mat3 &T, const Ray    &R);
-Hull    operator*(const mat3 &T, const Hull   &H);
+
+
+// ensure that it is convex
+// able to calculate surface normals
+struct Hull {
+	//vec2 position;
+	vec2 vertices[16];
+	vec2 normals[16];
+	size_t size;
+
+	//assume Clockwise winding order, evaluate each normal.
+	Hull(const vec2 *a_vertices, unsigned a_size);
+	Hull();
+};
+// if the convex hulls are the same size, loop through and compare their normals and vertices
+Hull operator*(const mat3 &T, const Hull   &H);
+
+// multiply each vertex and normal by the matrix
+bool operator==(const Hull &A, const Hull &B);
 

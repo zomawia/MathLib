@@ -225,6 +225,23 @@ int main()
 
 	assert(fequals(planeBoxCollisionSwept(P6, vec2{ 1,0 }, Bp, vec2{ 1,0 }).entryTime, 6.f));
 
+	// convex hulls
+	vec2 verts[] = { {0,1}, {1,1}, {1,0}, {0,0} };
+
+	Hull myHull(verts, 4);
+
+	assert((myHull.normals[0] == vec2{ 0,1 }));
+	assert((myHull.normals[1] == vec2{ 1,0 }));
+	assert((myHull.normals[2] == vec2{ 0,-1 }));
+	assert((myHull.normals[3] == vec2{ -1,0 }));
+
+	Hull tHull = translate(vec2{ 1, 0 }) * myHull;
+
+	assert((tHull.vertices[0] == vec2{ 1,1 }));
+	assert((tHull.vertices[1] == vec2{ 2,1 }));
+	assert((tHull.vertices[2] == vec2{ 2,0 }));
+	assert((tHull.vertices[3] == vec2{ 1,0 }));
+
 	printf("All asserts working!\n");	
 	getchar();
 

@@ -223,8 +223,7 @@ mat3 scale(const vec2 & s)
 	return retval;
 }
 
-mat3 translate(const vec2 & t)
-{
+mat3 translate(const vec2 & t){
 	mat3 retval = mat3Identity();
 	retval[6] = t.x;
 	retval[7] = t.y;
