@@ -91,7 +91,7 @@ vec2 AABB::max() const
 Hull operator*(const mat3 & T, const Hull & H)
 {
 	Hull retval;
-
+	retval.size = H.size;
 	for (int i = 0; i < H.size; ++i)	{
 		retval.vertices[i] = (T * vec3{ H.vertices[i].x, H.vertices[i].y, 1 }).xy;
 		retval.normals[i] =  (T * vec3{H.normals[i].x, H.normals[i].y, 0 }).xy;
@@ -117,10 +117,18 @@ Hull::Hull()
 
 Hull::Hull(const vec2 * a_vertices, unsigned a_size){	
 
+	//size = a_size;
+	//for (int i = 0; i < size && i < 16; ++i) {		
+	//	vertices[i] = a_vertices[i];
+	//	normals[i] = perp(normal(a_vertices[i] - a_vertices[i+1]));
+	//}
+	//normals[size - 1] = perp(normal(a_vertices[size - 1] - a_vertices[0]));
+
 	size = a_size;
-	for (int i = 0; i < size && i < 16; ++i) {		
+
+	for (int i = 0; i < size && i < 16; ++i)
+	{
 		vertices[i] = a_vertices[i];
-		normals[i] = perp(normal(a_vertices[i] - a_vertices[i+1]));
+		normals[i] = -perp(normal(a_vertices[(i + 1) % size] - a_vertices[i]));
 	}
-	normals[size - 1] = perp(normal(a_vertices[size - 1] - a_vertices[0]));
 }

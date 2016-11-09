@@ -152,56 +152,79 @@ CollisionDataSwept planeBoxCollisionSwept(const Plane & P, const vec2 &Pvel,
 
 CollisionData HullCollision(const Hull & A, const Hull & B)
 {
+
+
+	// Combining all the axes into a single array
+	// This isn't necessary, but prevents duplicating
+	// the evaluation loop
+	int size = 0;
+	vec2 axes[32];
+
+	for (int j = 0; j < A.size; ++j) axes[size++] = A.normals[j];
+	for (int j = 0; j < B.size; ++j) axes[size++] = B.normals[j];
+
+
+	// Set up the return value
+	// Since we're looking for the smallest penetration depth
+	// along each axis, we can assume an infinitely large
+	// penetration depth and reduce it as we discover results.
+
 	CollisionData retval;
-	int size = A.size + B.size;
-	float axes[32];
-	float aAxes[16];
-	float bAxes[16];
-	
-	for (int j = 0; j < A.size; ++j) {
-		// project each point of each volume onto the axis				
-		for (int i = 0; i < A.size; ++i) {
-			aAxes[i] = dot(A.normals[j], A.vertices[i]);
+	retval.penetrationDepth = INFINITY;
+
+
+
+	// This is the actual test- it's broken into two steps.
+	// Find the projected min/max of each volume.
+	// Determine their penetration depth.
+
+	// The smallest of all is the final result.
+
+	for (int j = 0; j < size; ++j)
+	{
+		vec2 &axis = axes[j]; // cache the axis
+
+							  /////////////////////
+							  // Evaluate the extents
+							  // Start with some obnoxious values and work our way in.
+		float amin = INFINITY, amax = -INFINITY;
+		float bmin = INFINITY, bmax = -INFINITY;
+
+		// Loop through A's vertices and project the points.
+		for (int i = 0; i < A.size; ++i)
+		{
+			float proj = dot(axis, A.vertices[i]);
+			amin = fminf(proj, amin);
+			amax = fmaxf(proj, amax);
 		}
-		for (int i = 0; i < B.size; ++i) {
-			bAxes[i] = dot(A.normals[j], B.vertices[i]);
+
+		// Loop through B's vertices and project the points.
+		for (int i = 0; i < B.size; ++i)
+		{
+			float proj = dot(axis, B.vertices[i]);
+			bmin = fminf(proj, bmin);
+			bmax = fmaxf(proj, bmax);
+		}
+
+		/////////////////////////
+		// Evaluation
+		// Determine the penetration depth
+		float pDr, pDl, pD, H;
+		pDr = amax - bmin;
+		pDl = bmax - amin;
+
+		pD = fminf(pDr, pDl);
+
+		// The direction along the axis
+		H = copysignf(1, pDl - pDr);
+
+		// Pick the smallest one
+		if (pD < retval.penetrationDepth)
+		{
+			retval.penetrationDepth = pD;
+			retval.collisionNormal = axis * H;
 		}
 	}
-
-
-		float aMin[16];
-		float aMax[16];
-		float bMin[16];
-		float bMax[16];
-
-		// determine the axial extents (extents along the given axis)
-
-		for (int i = 0; i <= A.size; ++i) {
-			aMin[j] = fminf(aMin[j], aAxes[i + 1]);
-			aMax[j] = fmaxf(aMax[j], aAxes[i + 1]);
-		}
-
-		for (int i = 0; i <= B.size; ++i) {
-			bMin[j] = fminf(bMin[j], bAxes[i + 1]);
-			bMax[j] = fmaxf(bMax[j], bAxes[i + 1]);
-		}
-
-		float pdr[16];
-		float pdl[16];
-		float pda[16];
-		//axial penetration depth
-		pdr[j] = aMax[j] - bMin[j];
-		pdl[j] = bMax[j] - aMin[j];
-		pda[j] = fminf(pdr[j], pdl[j]);
-		//axial handedness
-		float hand[16];
-		hand[j] = copysignf(1, pdl[j] - pdr[j]);
-		// axial minimum translation vector
-		vec2 aMTV[16];
-		aMTV[j] = hand[j] * pda[j] * A.normals[j];
-	
-
-
 	return retval;
 }
 
