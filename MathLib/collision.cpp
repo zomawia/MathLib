@@ -150,6 +150,61 @@ CollisionDataSwept planeBoxCollisionSwept(const Plane & P, const vec2 &Pvel,
 	return retval;
 }
 
+CollisionData HullCollision(const Hull & A, const Hull & B)
+{
+	CollisionData retval;
+	int size = A.size + B.size;
+	float axes[32];
+	float aAxes[16];
+	float bAxes[16];
+	
+	for (int j = 0; j < A.size; ++j) {
+		// project each point of each volume onto the axis				
+		for (int i = 0; i < A.size; ++i) {
+			aAxes[i] = dot(A.normals[j], A.vertices[i]);
+		}
+		for (int i = 0; i < B.size; ++i) {
+			bAxes[i] = dot(A.normals[j], B.vertices[i]);
+		}
+	}
+
+
+		float aMin[16];
+		float aMax[16];
+		float bMin[16];
+		float bMax[16];
+
+		// determine the axial extents (extents along the given axis)
+
+		for (int i = 0; i <= A.size; ++i) {
+			aMin[j] = fminf(aMin[j], aAxes[i + 1]);
+			aMax[j] = fmaxf(aMax[j], aAxes[i + 1]);
+		}
+
+		for (int i = 0; i <= B.size; ++i) {
+			bMin[j] = fminf(bMin[j], bAxes[i + 1]);
+			bMax[j] = fmaxf(bMax[j], bAxes[i + 1]);
+		}
+
+		float pdr[16];
+		float pdl[16];
+		float pda[16];
+		//axial penetration depth
+		pdr[j] = aMax[j] - bMin[j];
+		pdl[j] = bMax[j] - aMin[j];
+		pda[j] = fminf(pdr[j], pdl[j]);
+		//axial handedness
+		float hand[16];
+		hand[j] = copysignf(1, pdl[j] - pdr[j]);
+		// axial minimum translation vector
+		vec2 aMTV[16];
+		aMTV[j] = hand[j] * pda[j] * A.normals[j];
+	
+
+
+	return retval;
+}
+
 bool CollisionDataSwept::result() const{
 	return entryTime >= 0 && entryTime <= 1 && collides;
 }

@@ -227,6 +227,7 @@ int main()
 
 	// convex hulls
 	vec2 verts[] = { {0,1}, {1,1}, {1,0}, {0,0} };
+	vec2 verts2[] = { {-1,-1},{-1,1}, {0,0} };
 
 	Hull myHull(verts, 4);
 
@@ -241,6 +242,13 @@ int main()
 	assert((tHull.vertices[1] == vec2{ 2,1 }));
 	assert((tHull.vertices[2] == vec2{ 2,0 }));
 	assert((tHull.vertices[3] == vec2{ 1,0 }));
+
+	//HullCollision
+	Hull otherHull(verts2, 3);
+
+	assert(fequals(HullCollision(myHull, otherHull).penetrationDepth, 0));
+	assert(fequals(HullCollision(myHull, tHull).penetrationDepth, -1));
+
 
 	printf("All asserts working!\n");	
 	getchar();
