@@ -46,7 +46,8 @@ CollisionData ColliderCollision(const Transform & AT, const Collider & AC, const
 	return retval;
 }
 
-CollisionData StaticResolution(Transform & AT, RigidBody & AR, const Collider & AC, const Transform & BT, const Collider & BC)
+CollisionData StaticResolution(Transform & AT, RigidBody & AR, const Collider & AC, 
+	const Transform & BT, const Collider & BC, float bounciness)
 {
 	CollisionData results = ColliderCollision(AT,AC,BT,BC);
 
