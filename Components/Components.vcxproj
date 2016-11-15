@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlanetaryMotor.cpp" />
     <ClCompile Include="PlanetaryRenderer.cpp" />
@@ -129,6 +130,7 @@
     <ClCompile Include="transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="PlanetaryMotor.h" />
     <ClInclude Include="PlanetaryRenderer.h" />
     <ClInclude Include="RigidBody.h" />
