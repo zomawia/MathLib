@@ -10,7 +10,10 @@ mat3 Camera::getCameraMatrix(){
 }
 
 void Camera::update(GameState &gs, float deltaTime){
-	transform.m_position = gs.player.transform.getGlobalPosition();
+	transform.m_position = 	lerp(transform.m_position,
+		(gs.player.shoulder.transform.getGlobalPosition() + 
+			gs.mousePos)/2,
+		deltaTime * 10);
 }
 
 void Camera::debugDraw(const mat3 & camera){

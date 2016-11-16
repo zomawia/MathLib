@@ -21,13 +21,13 @@ Collider::Collider(const vec2 * verts, int size) : hull(verts,size){
 	box.he = (boxMax - boxMin) / 2;
 }
 
-void Collider::DebugDraw(const mat3 & T, const Transform & trans){
+void Collider::DebugDraw(const mat3 & T, const Transform & trans, unsigned color){
 
 	//drawAABB(T * trans.getGlobalTransform() * box, BLUE);
 
 	//draw convex hull
 	//need draw function for hulls
-	drawHull(T * trans.getGlobalTransform() * hull, BLUE);
+	drawHull(T * trans.getGlobalTransform() * hull, color);
 
 
 }

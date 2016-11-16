@@ -1,16 +1,19 @@
 #pragma once
 #include "Camera.h"
-#include "PlayerShip.h"
-#include "Asteroid.h"
+#include "PlayerArm.h"
 #include "TractorBeam.h"
+#include "Asteroid.h"
+#include "Bullet.h"
 
 class GameState {
 public:
-	PlayerShip player;
 	Camera camera;
+	PlayerArm player;
+	Asteroid asteroid;
 	TractorBeam tractor;
-	Asteroid asteroid[4];
 	Bullet bullet;
+
+	vec2 mousePos;
 	
 	// init, play, term, step, draw
 	

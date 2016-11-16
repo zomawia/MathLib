@@ -4,10 +4,10 @@
 TractorBeam::TractorBeam(){
 
 	// shape of the tractor beam
-	vec2 hullVrts[] = { { .1f,.3f },{ -.1f,.3f },{ -5.f,9.f },{ 5.f,9.f } };
+	vec2 hullVrts[] = { { -.5, -1 },{ .5, -1 },{1, -2 },{ -1, -2 } };
 	collider = Collider(hullVrts, 4);
-	transform.m_position = { {3,1} };
-	transform.m_scale = vec2{ 10,10 };
+	transform.m_position = { {0,0} };
+	transform.m_facing = 0;
 	isAlive = false;
 	oneFrame = false;
 }

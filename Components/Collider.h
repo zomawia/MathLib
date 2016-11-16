@@ -3,6 +3,7 @@
 #include "transform.h"
 #include "collision.h"
 #include "RigidBody.h"
+#include "sfwdraw.h"
 
 class Collider{
 public:
@@ -11,7 +12,7 @@ public:
 
 	Collider();
 	Collider(const vec2 *verts, int size);
-	void DebugDraw(const mat3 &T, const Transform &trans);
+	void DebugDraw(const mat3 &T, const Transform &trans, unsigned color = BLUE);
 };
 
 CollisionData ColliderCollision(

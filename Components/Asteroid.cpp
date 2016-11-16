@@ -3,12 +3,12 @@
 Asteroid::Asteroid(){
 	vec2 hullVrts[] = { {1,1}, {1,-1}, {-1,-1}, {-1,1 } };
 	collider = Collider(hullVrts, 4);
-	render.size = 3;
-	transform.m_scale = vec2{ 3,3 };
+	render.size = 1;
+	transform.m_scale = vec2{ 10,10 };
 	
 	rigidbody.drag = 0.0f;
 	rigidbody.angularDrag = 0.0f;
-	rigidbody.mass = 15.f;
+	rigidbody.mass = 5.f;
 }
 
 void Asteroid::update(float deltaTime, GameState &gs){

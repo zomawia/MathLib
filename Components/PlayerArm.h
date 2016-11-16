@@ -4,6 +4,7 @@
 class PlayerArm {
 public:
 	Bone shoulder, upper, lower, hand;
+	
 
 	PlayerArm();
 	void update(class GameState &gs, float deltaTime);
