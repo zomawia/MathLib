@@ -12,8 +12,8 @@ SpaceshipLocomotion::SpaceshipLocomotion()
 	speed = 150.0f;
 	maxSpeed = 300.0f;
 
-	stopAction = 0.0f;
-	brakePower = 6.0f;
+	stopAction = 5.0f;
+	brakePower = 50.0f;
 }
 
 void SpaceshipLocomotion::doThrust(float value)

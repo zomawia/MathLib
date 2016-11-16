@@ -1,9 +1,10 @@
 #pragma once
-#include "transform.h"
+#include "ShipRenderer.h"
 #include "Collider.h"
 #include "RigidBody.h"
 #include "SpaceshipController.h"
 #include "SpaceshipLocomotion.h"
+#include "Bullet.h"
 
 class PlayerShip {
 public:
@@ -12,6 +13,9 @@ public:
 	RigidBody			rigidbody;
 	SpaceshipController controller;
 	SpaceshipLocomotion locomotion;
+	ShipRenderer		shiprender;
+	Bullet				bullet;
+
 
 	PlayerShip();
 

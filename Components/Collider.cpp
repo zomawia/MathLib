@@ -1,10 +1,10 @@
 #include "Collider.h"
 #include "shapedraw.h"
+#include "sfwdraw.h"
 #include <cmath>
 
 Collider::Collider()
 {
-	hull.size = 0;
 }
 
 Collider::Collider(const vec2 * verts, int size) : hull(verts,size){
@@ -23,11 +23,11 @@ Collider::Collider(const vec2 * verts, int size) : hull(verts,size){
 
 void Collider::DebugDraw(const mat3 & T, const Transform & trans){
 
-	drawAABB(T * trans.getGlobalTransform() * box, 0x888888ff);
+	//drawAABB(T * trans.getGlobalTransform() * box, BLUE);
 
 	//draw convex hull
 	//need draw function for hulls
-	drawHull(T * trans.getGlobalTransform() * hull, 0x888888ff);
+	drawHull(T * trans.getGlobalTransform() * hull, BLUE);
 
 
 }

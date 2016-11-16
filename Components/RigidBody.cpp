@@ -53,7 +53,7 @@ void RigidBody::integrate(Transform & trans, float delta)
 	
 }
 
-void RigidBody::debugDraw(const Transform & trans, const mat3 &T )
+void RigidBody::debugDraw(const mat3 &T, const Transform & trans)
 {
 	vec2 p = (T * trans.getGlobalTransform()).c[2].xy;	
 	vec2 v = p + velocity;
