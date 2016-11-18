@@ -1,5 +1,6 @@
 #include "Gamestate.h"
 #include "ObjectCollision.h"
+#include <cstdio>
 
 void GameState::play(){
 	asteroid.transform.m_position = { 600,400 };
@@ -13,7 +14,6 @@ void GameState::update(float deltaTime){
 	asteroid.update(deltaTime, *this);
 
 	TractorAsteroidCollision(tractor, asteroid);
-
 }
 
 void GameState::draw(){
@@ -22,4 +22,9 @@ void GameState::draw(){
 	player.debugDraw(cam);
 	asteroid.draw(cam);
 	tractor.draw(cam);
+
+	printf("hand.pos:%f, %f -- ast.pos:%f, %f\n",
+		player.hand.transform.m_position.x, player.hand.transform.m_position.y,
+		asteroid.transform.m_position.x, asteroid.transform.m_position.y
+		);
 }

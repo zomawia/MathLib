@@ -1,6 +1,7 @@
 #include "PlayerArm.h"
 #include "Gamestate.h"
 #include "sfwdraw.h"
+#include "ObjectCollision.h"
 #include <cstdio>
 
 PlayerArm::PlayerArm()
@@ -35,24 +36,32 @@ PlayerArm::PlayerArm()
 void PlayerArm::update(GameState &gs, float deltaTime)
 {
 	gs.tractor.transform.m_parent = &hand.transform;
-	
-	shoulder.rigidbody.integrate(shoulder.transform, deltaTime);
-	upper.rigidbody.integrate(upper.transform, deltaTime);
-	lower.rigidbody.integrate(lower.transform, deltaTime);
-	hand.rigidbody.integrate(hand.transform, deltaTime);	
 
-	if (shoulder.transform.m_facing <= -0.4f) shoulder.transform.m_facing = -0.4f;
-	if (shoulder.transform.m_facing >= 3.1f) shoulder.transform.m_facing = 3.1f;
+	shoulder.update(gs, deltaTime);
+	upper.update(gs, deltaTime);
+	lower.update(gs, deltaTime);
+	hand.update(gs, deltaTime);
 
-	if (upper.transform.m_facing <= -0.4f) upper.transform.m_facing = -0.4f;
+	playerAsteroidColl(hand, gs.asteroid);
+	//playerAsteroidColl(shoulder, gs.asteroid);
+	//playerAsteroidColl(upper, gs.asteroid);
+	//playerAsteroidColl(lower, gs.asteroid);
+
+
+	//if (shoulder.transform.m_facing <= -0.4f) shoulder.transform.m_facing = -0.4f;
+	//if (shoulder.transform.m_facing >= 3.1f) shoulder.transform.m_facing = 3.1f;
+
+	/* NEED TO MAKE A CONTROLLER */
+
+	if (upper.transform.m_facing <= -0.4f) upper.transform.m_facing = -0.3f;
 	if (upper.transform.m_facing >= 3.1f) upper.transform.m_facing = 3.1f;
 
 	if (lower.transform.m_facing <= 0) lower.transform.m_facing = 0;
 	if (lower.transform.m_facing >= 2.7f) lower.transform.m_facing = 2.7f;
 
-	if (sfw::getKey('Q')) shoulder.rigidbody.addTorque(5);
-	if (sfw::getKey('W')) shoulder.rigidbody.addTorque(-5);
-
+	//if (sfw::getKey('Q')) shoulder.rigidbody.addTorque(5);
+	//if (sfw::getKey('W')) shoulder.rigidbody.addTorque(-5);
+	
 	if (sfw::getKey('A')) upper.rigidbody.addTorque(5);
 	if (sfw::getKey('S')) upper.rigidbody.addTorque(-5);
 
@@ -76,15 +85,15 @@ void PlayerArm::debugDraw(const mat3 & camera)
 {
 	shoulder.rigidbody.debugDraw(camera, shoulder.transform);
 	
-	//shoulder.transform.debugDraw(camera);
+	shoulder.transform.debugDraw(camera);
 
 	shoulder.collider.DebugDraw(camera, shoulder.transform, RED);
 	upper.collider.DebugDraw(camera, upper.transform, WHITE);
 	lower.collider.DebugDraw(camera, lower.transform, BLUE);
 	hand.collider.DebugDraw(camera, hand.transform, YELLOW);
 
-	printf("shoulder:%f, upper:%f, lower: %f\n",
-		shoulder.transform.m_facing, upper.transform.m_facing, lower.transform.m_facing);
+	//printf("shoulder:%f, upper:%f, lower: %f\n",shoulder.transform.m_facing, upper.transform.m_facing, lower.transform.m_facing);
+	
 }
 
 void PlayerArm::draw(const mat3 & camera)

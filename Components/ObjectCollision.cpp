@@ -11,6 +11,19 @@ void playerAsteroidColl(PlayerShip & player, Asteroid & as)
 	}
 }
 
+void playerAsteroidColl(Bone & player, Asteroid & as)
+{
+	CollisionData result =
+		ColliderCollision(player.transform, player.collider,
+			as.transform, as.collider);
+
+	if (result.penetrationDepth >= 0)
+	{
+		as.rigidbody.force = { 0,0 };
+		as.transform = player.transform;
+	}
+}
+
 void asteroidColl(Asteroid & as1, Asteroid & as2)
 {
 	DynamicResolution(as1.transform, as1.rigidbody, as1.collider,

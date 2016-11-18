@@ -8,7 +8,7 @@ Asteroid::Asteroid(){
 	
 	rigidbody.drag = 0.0f;
 	rigidbody.angularDrag = 0.0f;
-	rigidbody.mass = 5.f;
+	rigidbody.mass = 1;
 }
 
 void Asteroid::update(float deltaTime, GameState &gs){
