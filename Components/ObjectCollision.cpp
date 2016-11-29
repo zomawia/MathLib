@@ -31,6 +31,12 @@ void HoopAsteroidColl(Bone & hoop, Asteroid & as){
 	StaticResolution(as.transform, as.rigidbody, as.collider, hoop.transform, hoop.collider, 1.f);
 }
 
+void DonaldAsteroidColl(Bone & donald, Asteroid & as2)
+{
+	DynamicResolution(donald.transform, donald.rigidbody, donald.collider,
+		as2.transform, as2.rigidbody, as2.collider);
+}
+
 void asteroidColl(Asteroid & as1, Asteroid & as2)
 {
 	DynamicResolution(as1.transform, as1.rigidbody, as1.collider,

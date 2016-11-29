@@ -123,6 +123,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Donald.cpp" />
     <ClCompile Include="Gamestate.cpp" />
     <ClCompile Include="Hoop.cpp" />
     <ClCompile Include="main.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="ShipRenderer.cpp" />
     <ClCompile Include="SpaceshipController.cpp" />
     <ClCompile Include="SpaceshipLocomotion.cpp" />
+    <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="TractorBeam.cpp" />
     <ClCompile Include="transform.cpp" />
   </ItemGroup>
@@ -145,6 +147,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Donald.h" />
     <ClInclude Include="Gamestate.h" />
     <ClInclude Include="Hoop.h" />
     <ClInclude Include="ObjectCollision.h" />
@@ -158,6 +161,7 @@
     <ClInclude Include="SpaceshipController.h" />
     <ClInclude Include="SpaceshipLocomotion.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="TractorBeam.h" />
     <ClInclude Include="transform.h" />
   </ItemGroup>

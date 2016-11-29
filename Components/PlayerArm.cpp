@@ -67,16 +67,16 @@ void PlayerArm::update(GameState &gs, float deltaTime)
 			vec2 dir = normal(hand.transform.getGlobalPosition());
 
 			gs.asteroid.rigidbody.addImpulse(dir * lower.transform.m_facing * 100);
-			gs.asteroid.rigidbody.addForce(dir * upper.transform.m_facing * 15);
-			gs.asteroid.rigidbody.addTorque(hand.transform.m_facing * 5);
+			gs.asteroid.rigidbody.addImpulse(dir * upper.transform.m_facing * 15);
+			gs.asteroid.rigidbody.addTorque(hand.transform.m_facing * 15);
 
 			isReset = true;
 		}		
 
 		//arm animations
-		upper.rigidbody.addTorque(-12);
-		lower.rigidbody.addTorque(-18);
-		hand.rigidbody.addTorque(-2);
+		upper.rigidbody.addTorque(-16);
+		lower.rigidbody.addTorque(-24);
+		//hand.rigidbody.addTorque(-2);
 	}
 
 	if (isGrabbing) gs.asteroid.rigidbody.addForce(gravity);
@@ -127,10 +127,10 @@ void PlayerArm::debugDraw(const mat3 & camera)
 	
 	//shoulder.transform.debugDraw(camera);
 
-	shoulder.collider.DebugDraw(camera, shoulder.transform, RED);
-	upper.collider.DebugDraw(camera, upper.transform, WHITE);
-	lower.collider.DebugDraw(camera, lower.transform, BLUE);
-	hand.collider.DebugDraw(camera, hand.transform, YELLOW);
+	//shoulder.collider.DebugDraw(camera, shoulder.transform, RED);
+	//upper.collider.DebugDraw(camera, upper.transform, WHITE);
+	//lower.collider.DebugDraw(camera, lower.transform, BLUE);
+	//hand.collider.DebugDraw(camera, hand.transform, YELLOW);
 
 	//printf("hand:%f, upper:%f, lower: %f\n",hand.transform.m_facing, upper.transform.m_facing, lower.transform.m_facing);
 	//if (isGrabbing == true) printf("isgrabbing true\n");
