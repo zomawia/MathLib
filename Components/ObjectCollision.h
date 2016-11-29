@@ -8,6 +8,7 @@
 
 void playerAsteroidColl(PlayerShip &player, Asteroid &as);
 void playerAsteroidColl(Bone &player, Asteroid &as);
+void HoopAsteroidColl(Bone &hoop, Asteroid &as);
 void asteroidColl(Asteroid &as1, Asteroid &as2);
 void BulletAsteroidCollision(Bullet &b, Asteroid &a);
 void TractorAsteroidCollision(TractorBeam & tractor, Asteroid & asteroid);

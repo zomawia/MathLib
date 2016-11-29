@@ -16,8 +16,11 @@ void Asteroid::update(float deltaTime, GameState &gs){
 }
 
 void Asteroid::draw(const mat3 &camera){
-	render.draw(transform, camera);
+	//render.draw(transform, camera);
+	mat3 U = camera * transform.getGlobalTransform();
+	sfw::drawTextureMatrix3(ball, 0, WHITE, (U * scale(vec2{ 2.5f ,2.5f })).m);
+
 	//transform.debugDraw(camera);
-	collider.DebugDraw(camera, transform);
-	rigidbody.debugDraw(camera, transform);
+	//collider.DebugDraw(camera, transform);
+	//rigidbody.debugDraw(camera, transform);
 }

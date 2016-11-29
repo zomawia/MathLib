@@ -3,7 +3,7 @@
 #include "PlayerArm.h"
 #include "TractorBeam.h"
 #include "Asteroid.h"
-#include "Bullet.h"
+#include "Hoop.h"
 
 class GameState {
 public:
@@ -11,7 +11,7 @@ public:
 	PlayerArm player;
 	Asteroid asteroid;
 	TractorBeam tractor;
-	Bullet bullet;
+	Hoop hoop;
 
 	vec2 mousePos;
 	

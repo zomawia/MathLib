@@ -11,6 +11,8 @@ public:
 	Transform transform;
 	PlanetaryRenderer render;
 
+	unsigned int ball = sfw::loadTextureMap("../dep/ball.png");
+
 	Asteroid();
 	void update(float deltaTime, class GameState &gs);
 	void draw(const mat3 &camera);

@@ -30,21 +30,21 @@ void PlayerShip::update(GameState & gs, float deltaTime){
 	}
 	else gs.tractor.isAlive = false;
 
-	// Bullet spawning Example!
-	if (sfw::getKey('F') && !gs.bullet.isAlive)
-	{
-		// bring it to life
-		gs.bullet.timer = 2.f;
+	//// Bullet spawning Example!
+	//if (sfw::getKey('F') && !gs.bullet.isAlive)
+	//{
+	//	// bring it to life
+	//	gs.bullet.timer = 2.f;
 
-		// set up it's position and stuff
-		gs.bullet.transform.m_position = transform.m_position;
-		gs.bullet.transform.m_facing = transform.m_facing;
+	//	// set up it's position and stuff
+	//	gs.bullet.transform.m_position = transform.m_position;
+	//	gs.bullet.transform.m_facing = transform.m_facing;
 
-		//reset velocity
-		gs.bullet.rigidbody.velocity = vec2{ 0,0 };
-		// get it moving
-		gs.bullet.rigidbody.addImpulse(transform.getUp() * 3000.f);
-	}
+	//	//reset velocity
+	//	gs.bullet.rigidbody.velocity = vec2{ 0,0 };
+	//	// get it moving
+	//	gs.bullet.rigidbody.addImpulse(transform.getUp() * 3000.f);
+	//}
 
 }
 

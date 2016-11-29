@@ -20,8 +20,15 @@ void playerAsteroidColl(Bone & player, Asteroid & as)
 	if (result.penetrationDepth >= 0)
 	{
 		as.rigidbody.force = { 0,0 };
+		as.rigidbody.velocity = { 0,0 };
 		as.transform = player.transform;
+		//as.transform.m_facing = player.transform.m_facing;
+		as.transform.m_position = player.transform.m_position + vec2{ 0,-1.5f };
 	}
+}
+
+void HoopAsteroidColl(Bone & hoop, Asteroid & as){
+	StaticResolution(as.transform, as.rigidbody, as.collider, hoop.transform, hoop.collider, 1.f);
 }
 
 void asteroidColl(Asteroid & as1, Asteroid & as2)
@@ -67,7 +74,7 @@ void TractorAsteroidCollision(TractorBeam & tractor, Asteroid & asteroid)
 		vec2 dir = normal(tractor.transform.getGlobalPosition() -
 			asteroid.transform.getGlobalPosition());
 		// and add a force to pull the objet toward us.
-		asteroid.rigidbody.addForce(dir * 750);
+		asteroid.rigidbody.addForce(dir * 500);
 		// If we flip the force, we can push stuff away.
 	}
 }

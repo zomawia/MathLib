@@ -1,7 +1,7 @@
 #include "Bone.h"
 
 Bone::Bone(){
-	rigidbody.mass = 5;
+	rigidbody.mass = 2;
 
 }
 

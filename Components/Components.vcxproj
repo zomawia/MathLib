@@ -124,6 +124,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Gamestate.cpp" />
+    <ClCompile Include="Hoop.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectCollision.cpp" />
     <ClCompile Include="PlanetaryMotor.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Gamestate.h" />
+    <ClInclude Include="Hoop.h" />
     <ClInclude Include="ObjectCollision.h" />
     <ClInclude Include="PlanetaryMotor.h" />
     <ClInclude Include="PlanetaryRenderer.h" />
@@ -155,6 +157,7 @@
     <ClInclude Include="ShipRenderer.h" />
     <ClInclude Include="SpaceshipController.h" />
     <ClInclude Include="SpaceshipLocomotion.h" />
+    <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="TractorBeam.h" />
     <ClInclude Include="transform.h" />
   </ItemGroup>
