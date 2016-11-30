@@ -8,9 +8,11 @@ void GameState::play(){
 	afont = sfw::loadTextureMap("../dep/uglyfont.png", 16, 16);
 	background.m_position = vec2{ 600,600 };
 	background.m_scale = vec2{ 10,10 };
-	img_background = sfw::loadTextureMap("../dep/background.png");
 
-	score = 0;
+	img_background = sfw::loadTextureMap("../dep/background.png");
+	img_slam = sfw::loadTextureMap("../dep/slam.png");
+
+	score = 1;
 	time = 0.0f;
 }
 
@@ -54,7 +56,10 @@ void GameState::update(float deltaTime){
 		time = 0.0f;
 		hoop.hitDetector.isAlive = false;
 		//function call display sprites
+	}
 
+	if (BoneAsteroidScoreHitDetectorCounterWhenCollisionHappens(hoop.Pole, asteroid)) {
+		time = 0.0f;
 	}
 
 }
@@ -66,21 +71,24 @@ void GameState::draw(){
 
 	sfw::drawTextureMatrix3(img_background, 0, WHITE, (backCam * scale(vec2{ 75.0f ,50.0f })).m);
 
-	sfw::drawString(afont, "sportsBall", 25, 300, 32, 32, 0, 0, GREEN);
-	sfw::drawString(afont, "use mouse to move camera", 30, 260, 15, 15, 0, 0, WHITE);
-	sfw::drawString(afont, "A and S to flex", 30, 240, 15, 15, 0, 0, WHITE);
-	sfw::drawString(afont, "Q and W to rotate arm", 30, 220, 15, 15, 0, 0, WHITE);
+	sfw::drawString(afont, "sportsBall", 25, 300, 34, 34, 0, 0, GREEN);
+	sfw::drawString(afont, "use mouse to move camera", 30, 260, 18, 18, 0, 0, WHITE);	
+	sfw::drawString(afont, "Q and W to rotate shoulder arm", 30, 220, 18, 18, 0, 0, WHITE);
+	sfw::drawString(afont, "A and S to flex/unflex", 30, 240, 18, 18, 0, 0, WHITE);
 
-	sfw::drawString(afont, "left click ->  pick up ball", 30, 200, 15, 15, 0, 0, WHITE);
-	sfw::drawString(afont, "right click -> shoot", 30, 180, 16, 15, 0, 0, WHITE);
+	sfw::drawString(afont, "left click ->  pick up ball", 30, 200, 18, 18, 0, 0, WHITE);	
 
-	sfw::drawString(afont, "swisheds", 1750, 150, 18, 18, 0, 0, GREEN);
+	sfw::drawString(afont, "line up your sportsball and then press right click", 30, 140, 15, 15, 0, 0, GREEN);
+
+	sfw::drawString(afont, "swishedses", 1750, 150, 20, 20, 0, 0, GREEN);
 	sfw::drawString(afont, std::to_string(score).c_str(), 1760, 130, 28, 28, 0, 0, GREEN);
 
 	//donald.debugDraw(cam);
 	if (score > 0) donald.draw(cam);
 
-	if (!hoop.hitDetector.isAlive && time < 10) sfw::drawString(afont, "sportsBall SLAMMAJAM!", 300, 600, 64, 64, 0, 0, YELLOW);
+	
+
+
 	
 
 	//player.debugDraw(cam);
@@ -90,4 +98,10 @@ void GameState::draw(){
 	hoop.debugDraw(cam);
 	hoop.draw(cam);
 
+
+	if (!hoop.hitDetector.isAlive && time < 10) {
+		sfw::drawTexture(img_slam, 240, 550, 128, 128);
+		sfw::drawString(afont, "sportsBall SLAMMAJAM!", 300, 600, 64, 64, 0, 0, YELLOW);
+		sfw::drawTexture(img_slam, 1690, 550, 128, 128);
+	}
 }

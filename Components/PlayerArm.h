@@ -7,6 +7,7 @@ public:
 
 	bool isGrabbing;
 	bool isReset;
+	bool isAir;
 	
 	unsigned int img_shoulder, img_upper, img_lower, img_hand, img_body;
 

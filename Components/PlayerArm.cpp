@@ -34,6 +34,7 @@ PlayerArm::PlayerArm()
 
 	isGrabbing = false;
 	isReset = false;
+	isAir = false;
 
 	img_shoulder = sfw::loadTextureMap("../dep/shoulder.png");
 	img_upper = sfw::loadTextureMap("../dep/upper.png");
@@ -54,6 +55,17 @@ void PlayerArm::update(GameState &gs, float deltaTime)
 	upper.update(gs, deltaTime);
 	lower.update(gs, deltaTime);
 	hand.update(gs, deltaTime);
+
+	shoulder.rigidbody.addForce(gravity);
+	if (sfw::getKey(32) & !isAir) {
+		shoulder.rigidbody.addImpulse(vec2{ 0,120 });
+		isAir = true;
+	}
+	if (shoulder.transform.m_position.y < 400) {
+		shoulder.transform.m_position.y = 400;
+		isAir = false;
+	}
+	
 
 	if (sfw::getMouseButton(MOUSE_BUTTON_RIGHT)) {
 		// remove arm-ball collision		
@@ -111,6 +123,7 @@ void PlayerArm::update(GameState &gs, float deltaTime)
 		if (sfw::getKey('Z')) hand.rigidbody.addTorque(4);
 		if (sfw::getKey('X')) hand.rigidbody.addTorque(-4);
 
+		
 
 		//tractor control
 		if (sfw::getMouseButton(MOUSE_BUTTON_LEFT)) {

@@ -23,6 +23,7 @@ public:
 	
 	unsigned int afont;
 	unsigned int img_background;
+	unsigned int img_slam;
 
 	// init, play, term, step, draw
 	

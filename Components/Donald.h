@@ -10,6 +10,7 @@ public:
 	unsigned int img_head;
 	unsigned int img_part;
 	unsigned int img_ship;
+	unsigned int img_brick;
 
 	Donald();
 	void update(class GameState &gs, float deltaTime);
