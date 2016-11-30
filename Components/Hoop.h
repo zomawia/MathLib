@@ -5,6 +5,7 @@
 class Hoop {
 public:
 	Bone BasketL, BasketR, Pole, Net;
+	Bone hitDetector;
 
 	unsigned int img_pole, img_net;
 

@@ -35,6 +35,12 @@ PlayerArm::PlayerArm()
 	isGrabbing = false;
 	isReset = false;
 
+	img_shoulder = sfw::loadTextureMap("../dep/shoulder.png");
+	img_upper = sfw::loadTextureMap("../dep/upper.png");
+	img_lower = sfw::loadTextureMap("../dep/lower.png");
+	img_hand = sfw::loadTextureMap("../dep/hand.png");
+	img_body = sfw::loadTextureMap("../dep/champ.png");
+
 	
 }
 
@@ -144,6 +150,7 @@ void PlayerArm::draw(const mat3 & camera)
 	mat3 L = camera * lower.transform.getGlobalTransform();
 	mat3 H = camera * hand.transform.getGlobalTransform();
 
+	sfw::drawTextureMatrix3(img_body, 0, WHITE, (S * translate(vec2{ 0,-2 }) * scale(vec2{ 4.5f ,16.0f })).m);
 	
 	sfw::drawTextureMatrix3(img_hand, 0, WHITE, (H * translate(vec2{ 0,0 }) * scale(vec2{ 2,2 })).m);
 

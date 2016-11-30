@@ -11,6 +11,7 @@ void playerAsteroidColl(Bone &player, Asteroid &as);
 
 void HoopAsteroidColl(Bone &hoop, Asteroid &as);
 void DonaldAsteroidColl(Bone &donald, Asteroid &as2);
+bool BoneAsteroidScoreHitDetectorCounterWhenCollisionHappens(Bone &hitdet, Asteroid &as);
 
 void asteroidColl(Asteroid &as1, Asteroid &as2);
 void BulletAsteroidCollision(Bullet &b, Asteroid &a);

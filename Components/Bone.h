@@ -9,6 +9,8 @@ public:
 	Collider	collider;
 	RigidBody	rigidbody;
 
+	bool isAlive;
+
 	Bone();
 
 	void update(class GameState &gs, float deltaTime);

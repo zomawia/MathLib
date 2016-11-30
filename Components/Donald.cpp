@@ -7,11 +7,11 @@ Donald::Donald()
 	vec2 bodyVerts[] = { { 1,1 },{ 1,-1 },{ -1,-1 },{ -1,1 } };
 
 	vec2 shipVerts[] = { { 4,1 },{ 4,-1 },{ -4,-1 },{ -4,1 } };
-	vec2 brickVerts[] = { { 1,1 },{ 1,-1 },{ -1,-1 },{ -1,1 } };
+	vec2 brickVerts[] = { { 0,0 },{ 0,4 },{ 1,4 },{ 1,0 } };
 
 	
 	body.transform.m_facing = 0;
-	body.transform.m_position = vec2{ 900, 650 };
+	body.transform.m_position = vec2{ 1200, 560 };
 	body.transform.m_scale = vec2{ 10,10 };
 	body.collider = Collider(bodyVerts, 4);
 
@@ -32,6 +32,9 @@ Donald::Donald()
 	head.transform.m_parent = &body.transform;
 	head.transform.m_position = vec2{ 0, 1.75f };
 	head.collider = Collider(headVerts, 4);
+
+	brick.collider = Collider(brickVerts, 4);
+	brick.transform.m_parent = &body.transform;	
 	
 	img_head = sfw::loadTextureMap("../dep/donaldhead.png");
 	img_part = sfw::loadTextureMap("../dep/donaldpart.png");
@@ -49,9 +52,6 @@ void Donald::update(GameState & gs, float deltaTime)
 	larm.update(gs, deltaTime);
 	rarm.update(gs, deltaTime);
 	ship.update(gs, deltaTime);
-
-	// move left and right
-
 
 	// drop bricks
 
@@ -85,5 +85,5 @@ void Donald::draw(const mat3 & camera){
 	sfw::drawTextureMatrix3(img_part, 0, WHITE, (rarmCam * translate(vec2{ 0,-.75f }) * scale(vec2{ .75f ,2.0f })).m);
 
 
-	sfw::drawTextureMatrix3(img_head, 0, WHITE, (headCam * scale(vec2{ 2.0f ,2.0f })).m);
+	sfw::drawTextureMatrix3(img_head, 0, WHITE, (headCam * scale(vec2{ 2.5f ,2.5f })).m);
 }

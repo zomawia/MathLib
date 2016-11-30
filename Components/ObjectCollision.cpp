@@ -37,6 +37,15 @@ void DonaldAsteroidColl(Bone & donald, Asteroid & as2)
 		as2.transform, as2.rigidbody, as2.collider);
 }
 
+bool BoneAsteroidScoreHitDetectorCounterWhenCollisionHappens(Bone & hitdet, Asteroid & as){
+	CollisionData result =
+		ColliderCollision(hitdet.transform, hitdet.collider,
+			as.transform, as.collider);
+	
+	return result.penetrationDepth >= 0;
+
+}
+
 void asteroidColl(Asteroid & as1, Asteroid & as2)
 {
 	DynamicResolution(as1.transform, as1.rigidbody, as1.collider,

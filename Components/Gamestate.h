@@ -18,7 +18,8 @@ public:
 
 	vec2 mousePos;
 
-	
+	int score;
+	float time;
 	
 	unsigned int afont;
 	unsigned int img_background;

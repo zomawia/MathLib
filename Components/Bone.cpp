@@ -2,7 +2,7 @@
 
 Bone::Bone(){
 	rigidbody.mass = 2;
-
+	isAlive = true;
 }
 
 void Bone::update(GameState & gs, float deltaTime){

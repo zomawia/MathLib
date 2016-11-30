@@ -8,10 +8,7 @@ public:
 	bool isGrabbing;
 	bool isReset;
 	
-	unsigned int img_shoulder = sfw::loadTextureMap("../dep/shoulder.png");
-	unsigned int img_upper = sfw::loadTextureMap("../dep/upper.png");
-	unsigned int img_lower = sfw::loadTextureMap("../dep/lower.png");
-	unsigned int img_hand = sfw::loadTextureMap("../dep/hand.png");
+	unsigned int img_shoulder, img_upper, img_lower, img_hand, img_body;
 
 	PlayerArm();
 	void update(class GameState &gs, float deltaTime);

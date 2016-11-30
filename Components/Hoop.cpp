@@ -7,6 +7,7 @@
 Hoop::Hoop(){
 	vec2 PoleVerts[] = { { 0,0 },{ 0,22 },{ 1,22 },{ 1,0 } };
 	vec2 BasketLVerts[] = { { 0,0 },{ 0,2 },{ .25f , 2 },{ .25f ,0 } };
+	vec2 hitVerts[] = { {0,0},{1,0} };
 	vec2 NetVerts[] = { {0,0},{0,2},{1,0},{1,2},{0,2},{0,0}};
 
 	Pole.rigidbody.mass = 1000;
@@ -16,11 +17,11 @@ Hoop::Hoop(){
 	Pole.transform.m_facing = 0;
 	Pole.transform.m_position = vec2{ 805, 300 };
 	Pole.transform.m_scale = vec2{ 10,10 };
-	Pole.collider = Collider(PoleVerts, 4);
-	
+	Pole.collider = Collider(PoleVerts, 4);	
 
 	BasketL.transform.m_parent = &Pole.transform;
 	BasketR.transform.m_parent = &Pole.transform;
+	hitDetector.transform.m_parent = &BasketL.transform;
 
 	BasketL.transform.m_position = vec2{ -4, 15};
 	BasketL.collider = Collider(BasketLVerts, 4);
@@ -28,8 +29,12 @@ Hoop::Hoop(){
 	BasketR.transform.m_position = vec2{ -.5f, 15 };
 	BasketR.collider = Collider(BasketLVerts, 4);
 
+	hitDetector.transform.m_position = vec2{ 1.25f,0 };
+	hitDetector.collider = Collider(hitVerts, 2);
+
 	img_pole = sfw::loadTextureMap("../dep/pole.png");
 	img_net = sfw::loadTextureMap("../dep/net.png");
+	
 }
 
 void Hoop::update(GameState & gs, float deltaTime)
@@ -37,13 +42,14 @@ void Hoop::update(GameState & gs, float deltaTime)
 	Pole.update(gs, deltaTime);
 	BasketL.update(gs, deltaTime);
 	BasketR.update(gs, deltaTime);
+	hitDetector.update(gs, deltaTime);
 }
 
-void Hoop::debugDraw(const mat3 & camera)
-{
-	Pole.collider.DebugDraw(camera, Pole.transform, WHITE);
+void Hoop::debugDraw(const mat3 & camera){
+	//Pole.collider.DebugDraw(camera, Pole.transform, WHITE);
 	BasketL.collider.DebugDraw(camera, BasketL.transform, RED);
 	BasketR.collider.DebugDraw(camera, BasketR.transform, RED);
+	hitDetector.collider.DebugDraw(camera, hitDetector.transform, BLUE);
 }
 
 void Hoop::draw(const mat3 & camera)
