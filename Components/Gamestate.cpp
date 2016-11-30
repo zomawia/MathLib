@@ -12,22 +12,27 @@ void GameState::play(){
 	img_background = sfw::loadTextureMap("../dep/background.png");
 	img_slam = sfw::loadTextureMap("../dep/slam.png");
 
-	score = 1;
+	brickCount = 0;
+	score = 0;
 	time = 0.0f;
+	start = { 400, 400 };
+	gravity = { 0, -120.f };
 }
 
 void GameState::update(float deltaTime){
+	
 	mousePos = { sfw::getMouseX(), sfw::getMouseY() };
 	
 	time += deltaTime;
 
-	if (score > 0) {
+	if (score > 0) {		
 		donald.update(*this, deltaTime);
 		DonaldAsteroidColl(donald.ship, asteroid);
 		DonaldAsteroidColl(donald.body, asteroid);
 		DonaldAsteroidColl(donald.head, asteroid);
 		DonaldAsteroidColl(donald.larm, asteroid);
 		DonaldAsteroidColl(donald.rarm, asteroid);
+		donald.brick[brickCount].isAlive = true;
 	}
 
 	player.update(*this, deltaTime);
@@ -40,6 +45,21 @@ void GameState::update(float deltaTime){
 	HoopAsteroidColl(hoop.BasketL, asteroid);
 	HoopAsteroidColl(hoop.BasketR, asteroid);	
 
+	// brick collision
+	for (int i = 0; i < 20; ++i)
+		for (int j = 0; i < 20; ++i)
+			//if (donald.brick[i].isAlive && donald.brick[j].isAlive)
+			BoneBoneCollisionUsedForDonaldTrumpDroppingDownTrumpWalls(donald.brick[i], donald.brick[j]);
+
+	//brick drop
+	if (donald.body.transform.getGlobalPosition().x == 700) {		
+		donald.brick[brickCount].rigidbody.addForce(gravity);
+		brickCount++;
+	}
+
+	if (brickCount > 19) brickCount = 19;
+
+
 	if (asteroid.transform.getGlobalPosition().y <= 100 || asteroid.transform.getGlobalPosition().x <= 100 ||
 		asteroid.transform.getGlobalPosition().x >= 1200 || asteroid.transform.getGlobalPosition().y >= 1200
 		) {
@@ -47,19 +67,26 @@ void GameState::update(float deltaTime){
 		player.isReset = false;
 		asteroid.transform.m_position = { 475,350 };
 		asteroid.rigidbody.velocity = { 0,0 };
+
+		player.shoulder.transform.m_position = start;
+		player.shoulder.rigidbody.velocity = { 0,0 };
+	}
+	
+	if (time > 3) {
+		hoop.hitDetector.isAlive = true;
+		hoop.Pole.isAlive = true;
 	}
 
-	if (time > 10) hoop.hitDetector.isAlive = true;
 
 	if (BoneAsteroidScoreHitDetectorCounterWhenCollisionHappens(hoop.hitDetector, asteroid) && hoop.hitDetector.isAlive){
 		score++;
 		time = 0.0f;
 		hoop.hitDetector.isAlive = false;
-		//function call display sprites
 	}
 
 	if (BoneAsteroidScoreHitDetectorCounterWhenCollisionHappens(hoop.Pole, asteroid)) {
 		time = 0.0f;
+		hoop.Pole.isAlive = false;
 	}
 
 }
@@ -80,23 +107,17 @@ void GameState::draw(){
 
 	sfw::drawString(afont, "line up your sportsball and then press right click", 30, 140, 15, 15, 0, 0, GREEN);
 
-	sfw::drawString(afont, "swishedses", 1750, 150, 20, 20, 0, 0, GREEN);
+	sfw::drawString(afont, "swishedses", 1730, 150, 20, 20, 0, 0, GREEN);
 	sfw::drawString(afont, std::to_string(score).c_str(), 1760, 130, 28, 28, 0, 0, GREEN);
 
-	//donald.debugDraw(cam);
-	if (score > 0) donald.draw(cam);
+	if (score > 0) donald.draw(cam);	
 
-	
-
-
-	
-
-	//player.debugDraw(cam);
 	player.draw(cam);
 	asteroid.draw(cam);
 	tractor.draw(cam);
-	hoop.debugDraw(cam);
+	
 	hoop.draw(cam);
+	hoop.debugDraw(cam);
 
 
 	if (!hoop.hitDetector.isAlive && time < 10) {

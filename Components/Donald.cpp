@@ -33,9 +33,12 @@ Donald::Donald()
 	head.transform.m_position = vec2{ 0, 1.75f };
 	head.collider = Collider(headVerts, 4);
 
-	brick.collider = Collider(brickVerts, 4);
-	brick.transform.m_position = vec2{ -1,-1 };
-	brick.transform.m_parent = &body.transform;	
+	for (int i = 0; i < 20; ++i) {
+		brick[i].collider = Collider(brickVerts, 4);
+		brick[i].transform.m_position = vec2{ -1,-1 };
+		brick[i].transform.m_parent = &body.transform;
+		brick[i].isAlive = false;
+	}
 	
 	img_head = sfw::loadTextureMap("../dep/donaldhead.png");
 	img_part = sfw::loadTextureMap("../dep/donaldpart.png");
@@ -53,13 +56,14 @@ void Donald::update(GameState & gs, float deltaTime)
 	body.update(gs, deltaTime);
 	larm.update(gs, deltaTime);
 	rarm.update(gs, deltaTime);
-	ship.update(gs, deltaTime);
-	
-	// drop bricks
-	brick.update(gs, deltaTime);
+	ship.update(gs, deltaTime);		
 
-	// accept gravity on collision
-
+	for (int i = 0; i < 20; ++i) {
+		if (brick[i].isAlive) {			
+			brick[i].update(gs, deltaTime);
+			if (brick[i].transform.getGlobalPosition().y < 300) brick[i].transform.m_position.y = 300;
+		}
+	}
 }
 
 void Donald::debugDraw(const mat3 & camera){
@@ -68,8 +72,9 @@ void Donald::debugDraw(const mat3 & camera){
 	//larm.collider.DebugDraw(camera, larm.transform, YELLOW);
 	//rarm.collider.DebugDraw(camera, rarm.transform, YELLOW);
 	//ship.collider.DebugDraw(camera, ship.transform, BLUE);
-
-	brick.collider.DebugDraw(camera, brick.transform, RED);
+	for (int i = 0; i < 20; ++i) {
+		brick[i].collider.DebugDraw(camera, brick[i].transform, RED);
+	}
 
 }
 
@@ -79,7 +84,8 @@ void Donald::draw(const mat3 & camera){
 	mat3 rarmCam = camera * rarm.transform.getGlobalTransform();
 	mat3 bodyCam = camera * body.transform.getGlobalTransform();
 	mat3 shipCam = camera * ship.transform.getGlobalTransform();
-	mat3 brickCam = camera * brick.transform.getGlobalTransform();
+
+
 		
 	sfw::drawTextureMatrix3(img_part, 0, WHITE, (bodyCam * scale(vec2{ 2.0f ,2.0f })).m);
 
@@ -91,6 +97,12 @@ void Donald::draw(const mat3 & camera){
 
 	sfw::drawTextureMatrix3(img_head, 0, WHITE, (headCam * scale(vec2{ 2.5f ,2.5f })).m);
 
-	sfw::drawTextureMatrix3(img_brick, 0, WHITE, (brickCam * scale(vec2{ 3.5f ,3.5f })).m);
+	mat3 brickCam;
+	for (int i = 0; i < 20; ++i) {
+		if (brick[i].isAlive) {
+			brickCam = camera * brick[i].transform.getGlobalTransform();
+			sfw::drawTextureMatrix3(img_brick, 0, WHITE, (brickCam * scale(vec2{ 3.5f ,3.5f })).m);
+		}
+	}
 
 }

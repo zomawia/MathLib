@@ -45,9 +45,14 @@ PlayerArm::PlayerArm()
 	
 }
 
+void PlayerArm::reset()
+{
+	shoulder.rigidbody.velocity = { 0,0 };
+}
+
 void PlayerArm::update(GameState &gs, float deltaTime)
 {
-	vec2 gravity = { 0, -120.f };
+	vec2 gravity = { 0, -120.f };	
 
 	gs.tractor.transform.m_parent = &hand.transform;	
 
@@ -58,11 +63,12 @@ void PlayerArm::update(GameState &gs, float deltaTime)
 
 	shoulder.rigidbody.addForce(gravity);
 	if (sfw::getKey(32) & !isAir) {
-		shoulder.rigidbody.addImpulse(vec2{ 0,120 });
+		shoulder.rigidbody.addImpulse(vec2{ 20,120 });
 		isAir = true;
 	}
 	if (shoulder.transform.m_position.y < 400) {
 		shoulder.transform.m_position.y = 400;
+		shoulder.rigidbody.velocity = { 0,0 };
 		isAir = false;
 	}
 	
@@ -72,8 +78,6 @@ void PlayerArm::update(GameState &gs, float deltaTime)
 		isGrabbing = true;		
 
 		//ball reset		
-		
-		
 		if (isReset == false) {
 			gs.asteroid.transform.m_position = gs.asteroid.transform.getGlobalPosition();
 			gs.asteroid.transform.m_scale = vec2{ 10,10 };
@@ -121,9 +125,7 @@ void PlayerArm::update(GameState &gs, float deltaTime)
 		if (sfw::getKey('S')) lower.rigidbody.addTorque(-4);
 
 		if (sfw::getKey('Z')) hand.rigidbody.addTorque(4);
-		if (sfw::getKey('X')) hand.rigidbody.addTorque(-4);
-
-		
+		if (sfw::getKey('X')) hand.rigidbody.addTorque(-4);		
 
 		//tractor control
 		if (sfw::getMouseButton(MOUSE_BUTTON_LEFT)) {

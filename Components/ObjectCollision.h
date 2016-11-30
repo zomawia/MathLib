@@ -14,5 +14,6 @@ void DonaldAsteroidColl(Bone &donald, Asteroid &as2);
 bool BoneAsteroidScoreHitDetectorCounterWhenCollisionHappens(Bone &hitdet, Asteroid &as);
 
 void asteroidColl(Asteroid &as1, Asteroid &as2);
+void BoneBoneCollisionUsedForDonaldTrumpDroppingDownTrumpWalls(Bone &as1, Bone &as2);
 void BulletAsteroidCollision(Bullet &b, Asteroid &a);
 void TractorAsteroidCollision(TractorBeam & tractor, Asteroid & asteroid);

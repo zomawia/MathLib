@@ -5,7 +5,7 @@
 class Donald {
 public:
 	Bone head, larm, rarm, lleg, rleg, body, ship;
-	Bone brick;
+	Bone brick[20];
 
 	unsigned int img_head;
 	unsigned int img_part;

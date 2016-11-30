@@ -17,9 +17,12 @@ public:
 	Transform background;
 
 	vec2 mousePos;
+	vec2 start;
+	vec2 gravity;
 
-	int score;
+	int score, brickCount;
 	float time;
+
 	
 	unsigned int afont;
 	unsigned int img_background;

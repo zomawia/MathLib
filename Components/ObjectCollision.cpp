@@ -46,8 +46,12 @@ bool BoneAsteroidScoreHitDetectorCounterWhenCollisionHappens(Bone & hitdet, Aste
 
 }
 
-void asteroidColl(Asteroid & as1, Asteroid & as2)
-{
+void asteroidColl(Asteroid & as1, Asteroid & as2){
+	DynamicResolution(as1.transform, as1.rigidbody, as1.collider,
+		as2.transform, as2.rigidbody, as2.collider);
+}
+
+void BoneBoneCollisionUsedForDonaldTrumpDroppingDownTrumpWalls(Bone & as1, Bone & as2){
 	DynamicResolution(as1.transform, as1.rigidbody, as1.collider,
 		as2.transform, as2.rigidbody, as2.collider);
 }
