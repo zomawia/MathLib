@@ -25,7 +25,7 @@ void GameState::update(float deltaTime){
 	
 	time += deltaTime;
 
-	if (score > 0) {		
+	if (score > 2) {		
 		donald.update(*this, deltaTime);
 		DonaldAsteroidColl(donald.ship, asteroid);
 		DonaldAsteroidColl(donald.body, asteroid);
@@ -110,7 +110,7 @@ void GameState::draw(){
 	sfw::drawString(afont, "swishedses", 1730, 150, 20, 20, 0, 0, GREEN);
 	sfw::drawString(afont, std::to_string(score).c_str(), 1760, 130, 28, 28, 0, 0, GREEN);
 
-	if (score > 0) donald.draw(cam);	
+	if (score > 2) donald.draw(cam);	
 
 	player.draw(cam);
 	asteroid.draw(cam);
