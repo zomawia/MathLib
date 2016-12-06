@@ -61,7 +61,7 @@ void GameState::update(float deltaTime){
 
 
 	if (asteroid.transform.getGlobalPosition().y <= 100 || asteroid.transform.getGlobalPosition().x <= 100 ||
-		asteroid.transform.getGlobalPosition().x >= 1200 || asteroid.transform.getGlobalPosition().y >= 1200
+		asteroid.transform.getGlobalPosition().x >= 1200 || asteroid.transform.getGlobalPosition().y >= 1000
 		) {
 		player.isGrabbing = false;
 		player.isReset = false;
