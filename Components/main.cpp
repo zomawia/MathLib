@@ -1,27 +1,27 @@
-// sportsball
+// donald trump spawner
 // by zomawia sailo
 // <zomawia@gmail.com>
 
 #include "sfwdraw.h"
-#include "Gamestate.h"
-#include <cstdio>
+#include "Particle.h"
+#include "ParticleSpawner.h"
+#include <iostream>
+#include "Camera.h"
 
 void main()
 {
 	float SCREEN_WIDTH = 1920, SCREEN_HEIGHT = 1080;
 	sfw::initContext(SCREEN_WIDTH, SCREEN_HEIGHT);	
 
-	GameState game;
+	ParticleSpawner spwnd;
+	Camera camera;
 
-	game.play();
+	mat3 cam = camera.getCameraMatrix();
 
 	while (sfw::stepContext()) {
-		
-		float dt = sfw::getDeltaTime();
-		game.update(dt);
-		game.draw();
-
-
+		float time = sfw::getDeltaTime();
+		spwnd.update(time);
+		spwnd.draw(cam);
 	}
 
 	sfw::termContext();

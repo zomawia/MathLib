@@ -151,6 +151,9 @@
     <ClInclude Include="Gamestate.h" />
     <ClInclude Include="Hoop.h" />
     <ClInclude Include="ObjectCollision.h" />
+    <ClInclude Include="oobpool.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleSpawner.h" />
     <ClInclude Include="PlanetaryMotor.h" />
     <ClInclude Include="PlanetaryRenderer.h" />
     <ClInclude Include="PlayerArm.h" />

@@ -89,9 +89,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Gamestate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -119,40 +116,52 @@
     <ClInclude Include="transform.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerShip.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Asteroid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectCollision.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TractorBeam.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Asteroid.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
     <ClInclude Include="Bone.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerArm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hoop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextRenderer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Donald.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Gamestate.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Hoop.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectCollision.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerArm.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerShip.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRenderer.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="oobpool.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSpawner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
