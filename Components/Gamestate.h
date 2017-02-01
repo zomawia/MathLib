@@ -5,6 +5,7 @@
 #include "Asteroid.h"
 #include "Hoop.h"
 #include "Donald.h"
+#include "ParticleSpawner.h"
 
 class GameState {
 public:
@@ -15,6 +16,8 @@ public:
 	Hoop hoop;
 	Donald donald;
 	Transform background;
+
+	ParticleSpawner factory;
 
 	vec2 mousePos;
 	vec2 start;

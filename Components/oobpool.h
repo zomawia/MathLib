@@ -7,7 +7,7 @@ class obpool
 {
 	// Default capacity for object pool.
 	const static size_t DEFAULT_POOL_SIZE = 100;
-
+	size_t counter;
 	// Backing array for object pool.
 	std::vector<T> pool;
 	std::vector<bool> poolValidity;
@@ -45,6 +45,7 @@ class obpool
 
 public:
 	obpool() {
+		counter = 0;
 		pool.resize(DEFAULT_POOL_SIZE);
 		poolValidity.resize(DEFAULT_POOL_SIZE);
 
@@ -132,15 +133,15 @@ public:
 		size_t idx = nextEmpty();
 		pool[idx] = cpy;
 		poolValidity[idx] = true;
-
+		++counter;
 		return handle(this, idx);
 	}
 
-	void pop(size_t idx) { poolValidity[idx] = false; }
+	void pop(size_t idx) { poolValidity[idx] = false; --counter; }
 
 	// Returns true if the handle
 	bool isValid(size_t idx) const
-	{
+	{		
 		return poolValidity[idx];
 	}
 
@@ -173,6 +174,10 @@ public:
 		//	if (isValid(i))
 		//		temp = i;
 		return handle(this, poolValidity.size());
+	}
+
+	int Count() {
+		return counter;
 	}
 
 };
